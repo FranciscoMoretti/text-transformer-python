@@ -40,19 +40,22 @@ def find_lines_that_cointains_strings(lines: List[str], match_patterns: List[str
         for match_pattern in match_patterns:
             if match_pattern in line_text:
                 lines_by_match_pattern[match_pattern].append(Line(text=line_text, number=line_number))
+    return lines_by_match_pattern
+
+class DelimitersRegistry:
+    def __init__(self, delimiters: List[Delimiter]) -> None:
+        self._delimiters: List[Delimiter] = delimiters
+
+    def get_values(self) -> List[str]:
+         return [delimiter.value for delimiter in self._delimiters]
 
 
-file_starter_delimiters: List[Delimiter] = [
+file_starter_delimiters = DelimitersRegistry([
     Delimiter(name='main', value='name="main"'),
     Delimiter(name='abstract', value='name="S-abstract"'),
     Delimiter(name='introduction', value='name="S-introduction"')
-]
+])
 
-lines_of_delimiters = find_lines_that_cointains_strings(lines, file_starter_delimiters) 
+lines_of_delimiters = find_lines_that_cointains_strings(lines, file_starter_delimiters.get_values())
 
-
-
-find_lines_that_cointains_string(lines, file_starter_delimiters, lines_by_delimiters)
-
-
-print(lines_by_delimiters)
+print(lines_of_delimiters)
