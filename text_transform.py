@@ -41,16 +41,16 @@ class FileReader:
 input_file = FileReader.read_from_path("CppCoreGuidelines.md")
 
 @dataclass
-class Line:
+class TextLine:
     text: str
-    number: int
+    line_number: int
 
-def find_lines_that_cointains_strings(lines: List[str], match_patterns: List[str]) -> List[Line]:
+def find_lines_that_cointains_strings(lines: List[str], match_patterns: List[str]) -> List[TextLine]:
     lines_by_match_pattern: Dict[str, List[str]] = {match_pattern: [] for match_pattern in match_patterns}
     for line_number, line_text  in enumerate(lines):
         for match_pattern in match_patterns:
             if match_pattern in line_text:
-                lines_by_match_pattern[match_pattern].append(Line(text=line_text, number=line_number))
+                lines_by_match_pattern[match_pattern].append(TextLine(text=line_text, line_number=line_number))
     return lines_by_match_pattern
 
 
