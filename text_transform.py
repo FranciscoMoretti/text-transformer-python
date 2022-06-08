@@ -26,9 +26,17 @@ class VirtualFile:
     lines: str
     path: Optional[Path] = None
 
+class FileReader:
+    @staticmethod
+    def read_from_path(filepath: Path) -> VirtualFile:
+        with open(filepath) as open_file:
+            return VirtualFile(
+                lines=open_file.readlines(),
+                path=filepath
+            )
+        
 
-with open("CppCoreGuidelines.md") as fp:
-    lines = fp.readlines()
+input_file = FileReader.read_from_path("CppCoreGuidelines.md")
 
 @dataclass
 class Separator:
@@ -62,6 +70,6 @@ file_starter_separators = SeparatorsRegistry([
     Separator(name='introduction', value='name="S-introduction"')
 ])
 
-lines_of_separators = find_lines_that_cointains_strings(lines, file_starter_separators.get_values())
+lines_of_separators = find_lines_that_cointains_strings(input_file.lines, file_starter_separators.get_values())
 
 print(lines_of_separators)
