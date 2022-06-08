@@ -25,7 +25,7 @@ with open("CppCoreGuidelines.md") as fp:
     lines = fp.readlines()
 
 @dataclass
-class Delimiter:
+class Separator:
     name: str
     value: str
 
@@ -42,20 +42,20 @@ def find_lines_that_cointains_strings(lines: List[str], match_patterns: List[str
                 lines_by_match_pattern[match_pattern].append(Line(text=line_text, number=line_number))
     return lines_by_match_pattern
 
-class DelimitersRegistry:
-    def __init__(self, delimiters: List[Delimiter]) -> None:
-        self._delimiters: List[Delimiter] = delimiters
+class SeparatorsRegistry:
+    def __init__(self, delimiters: List[Separator]) -> None:
+        self._separators: List[Separator] = delimiters
 
     def get_values(self) -> List[str]:
-         return [delimiter.value for delimiter in self._delimiters]
+         return [separator.value for separator in self._separators]
 
 
-file_starter_delimiters = DelimitersRegistry([
-    Delimiter(name='main', value='name="main"'),
-    Delimiter(name='abstract', value='name="S-abstract"'),
-    Delimiter(name='introduction', value='name="S-introduction"')
+file_starter_separators = SeparatorsRegistry([
+    Separator(name='main', value='name="main"'),
+    Separator(name='abstract', value='name="S-abstract"'),
+    Separator(name='introduction', value='name="S-introduction"')
 ])
 
-lines_of_delimiters = find_lines_that_cointains_strings(lines, file_starter_delimiters.get_values())
+lines_of_separators = find_lines_that_cointains_strings(lines, file_starter_separators.get_values())
 
-print(lines_of_delimiters)
+print(lines_of_separators)
