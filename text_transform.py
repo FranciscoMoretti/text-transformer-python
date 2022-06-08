@@ -3,7 +3,8 @@
 # statement
   
 from dataclasses import dataclass
-from typing import Dict, List
+from pathlib import Path
+from typing import Dict, List, Optional
 
 
 L = ["Geeks\n", "for\n", "Geeks\n"]
@@ -19,6 +20,12 @@ count = 0
 print("Using readlines()")
 
 lines: List[str] = []
+
+@dataclass
+class VirtualFile:
+    lines: str
+    path: Optional[Path] = None
+
 
 with open("CppCoreGuidelines.md") as fp:
     lines = fp.readlines()
