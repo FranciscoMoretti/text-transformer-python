@@ -6,6 +6,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Optional
 
+from separators import Separator, SeparatorsRegistry
+
 
 L = ["Geeks\n", "for\n", "Geeks\n"]
   
@@ -39,11 +41,6 @@ class FileReader:
 input_file = FileReader.read_from_path("CppCoreGuidelines.md")
 
 @dataclass
-class Separator:
-    name: str
-    value: str
-
-@dataclass
 class Line:
     text: str
     number: int
@@ -55,13 +52,6 @@ def find_lines_that_cointains_strings(lines: List[str], match_patterns: List[str
             if match_pattern in line_text:
                 lines_by_match_pattern[match_pattern].append(Line(text=line_text, number=line_number))
     return lines_by_match_pattern
-
-class SeparatorsRegistry:
-    def __init__(self, delimiters: List[Separator]) -> None:
-        self._separators: List[Separator] = delimiters
-
-    def get_values(self) -> List[str]:
-         return [separator.value for separator in self._separators]
 
 
 file_starter_separators = SeparatorsRegistry([
