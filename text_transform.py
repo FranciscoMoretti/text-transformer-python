@@ -18,10 +18,6 @@ VirtualFileIO.save_to_real_file(virtual_file=
         path=Path("myfile.txt")
     )
 )
-# Writing to file
-with open("myfile.txt", "w") as fp:
-    fp.writelines(L)
-  
   
 # using readlines()
 count = 0
