@@ -4,14 +4,20 @@
   
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 from separators import Separator, SeparatorsRegistry
+from virtual_file import VirtualFile, VirtualFileIO
 
 
 L = ["Geeks\n", "for\n", "Geeks\n"]
   
-  
+VirtualFileIO.save_to_real_file(virtual_file=
+    VirtualFile(
+        lines=L,
+        path=Path("myfile.txt")
+    )
+)
 # Writing to file
 with open("myfile.txt", "w") as fp:
     fp.writelines(L)
@@ -23,22 +29,7 @@ print("Using readlines()")
 
 lines: List[str] = []
 
-@dataclass
-class VirtualFile:
-    lines: str
-    path: Optional[Path] = None
-
-class FileReader:
-    @staticmethod
-    def read_from_path(filepath: Path) -> VirtualFile:
-        with open(filepath) as open_file:
-            return VirtualFile(
-                lines=open_file.readlines(),
-                path=filepath
-            )
-        
-
-input_file = FileReader.read_from_path("CppCoreGuidelines.md")
+input_file = VirtualFileIO.read_from_path("CppCoreGuidelines.md")
 
 @dataclass
 class TextLine:
