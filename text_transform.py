@@ -2,7 +2,6 @@
 # demonstrate with
 # statement
   
-from ast import Del
 from dataclasses import dataclass
 from typing import Dict, List
 
