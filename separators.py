@@ -1,10 +1,10 @@
 from collections import UserList
-from dataclasses import dataclass
-from typing import List, Dict
+from typing import Dict, List
+
+from pydantic import BaseModel
 
 
-@dataclass
-class Separator:
+class Separator(BaseModel):
     name: str
     value: str
 
