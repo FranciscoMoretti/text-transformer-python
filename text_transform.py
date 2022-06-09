@@ -20,7 +20,6 @@ VirtualFileIO.save_to_real_file(
 count = 0
 print("Using readlines()")
 
-lines: List[str] = []
 
 input_file = VirtualFileIO.read_from_path(Path("CppCoreGuidelines.md"))
 
