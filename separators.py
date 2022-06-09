@@ -15,9 +15,4 @@ class SeparatorList(UserList):
 
     @staticmethod
     def from_list_of_dictionaries(list_of_dict: List[Dict[str, str]]):
-        return SeparatorList(
-            [
-                Separator(name=dictionary["name"], value=dictionary["value"])
-                for dictionary in list_of_dict
-            ]
-        )
+        return SeparatorList([Separator(**dictionary) for dictionary in list_of_dict])
