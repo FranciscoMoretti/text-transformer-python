@@ -27,7 +27,6 @@ def test_get_values():
 
 
 def test_from_dict():
-
     assert SEPARATOR_LIST_SAMPLE == SeparatorList.from_list_of_dictionaries(
         SEPARATOR_LIST_DICT_SAMPLE
     )
