@@ -9,7 +9,7 @@ class SeparatorReader:
     @staticmethod
     def from_json_file(filepath: Path) -> SeparatorList:
         data = None
-        with open(filepath) as open_file:
+        with open(filepath, encoding="utf-8") as open_file:
             data = json.load(open_file)
         return SeparatorReader.from_list_of_dictionaries(data)
 
