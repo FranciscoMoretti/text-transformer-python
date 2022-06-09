@@ -22,7 +22,7 @@ print("Using readlines()")
 
 lines: List[str] = []
 
-input_file = VirtualFileIO.read_from_path("CppCoreGuidelines.md")
+input_file = VirtualFileIO.read_from_path(Path("CppCoreGuidelines.md"))
 
 
 @dataclass
