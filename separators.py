@@ -10,6 +10,10 @@ class Separator(BaseModel):
 
 
 class SeparatorList(UserList):
+    def __init__(self, initlist=None) -> None:
+        super().__init__(initlist)
+        self.data: List[Separator]
+
     def get_values(self) -> List[str]:
         return [separator.value for separator in self.data]
 
