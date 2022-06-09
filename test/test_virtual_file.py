@@ -1,6 +1,5 @@
 from virtual_file import VirtualFile, VirtualFileIO
 
-# content of test_tmp_path.py
 CONTENT = "content"
 
 
