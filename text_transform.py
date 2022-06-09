@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List
 
-from separators import Separator, SeparatorsRegistry
+from separators import Separator, SeparatorList
 from virtual_file import VirtualFile, VirtualFileIO
 
 
@@ -46,7 +46,7 @@ def find_lines_that_cointains_strings(
     return lines_by_match_pattern
 
 
-file_starter_separators = SeparatorsRegistry(
+file_starter_separators = SeparatorList(
     [
         Separator(name="main", value='name="main"'),
         Separator(name="abstract", value='name="S-abstract"'),

@@ -1,3 +1,4 @@
+from collections import UserList
 from dataclasses import dataclass
 from typing import List
 
@@ -8,9 +9,6 @@ class Separator:
     value: str
 
 
-class SeparatorsRegistry:
-    def __init__(self, delimiters: List[Separator]) -> None:
-        self._separators: List[Separator] = delimiters
-
+class SeparatorList(UserList):
     def get_values(self) -> List[str]:
-        return [separator.value for separator in self._separators]
+        return [separator.value for separator in self.data]
