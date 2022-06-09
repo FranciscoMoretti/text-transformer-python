@@ -30,7 +30,7 @@ class TextLine:
     line_number: int
 
 
-def find_lines_that_cointains_strings(
+def find_lines_that_contains_strings(
     lines: List[str], match_patterns: List[str]
 ) -> List[TextLine]:
     lines_by_match_pattern: Dict[str, List[str]] = {
@@ -53,7 +53,7 @@ file_starter_separators = SeparatorList(
     ]
 )
 
-lines_of_separators = find_lines_that_cointains_strings(
+lines_of_separators = find_lines_that_contains_strings(
     input_file.lines, file_starter_separators.get_values()
 )
 
