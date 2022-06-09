@@ -1,7 +1,7 @@
 import json
-from separators import Separator, SeparatorList
 from test.utils.tmp_path import _get_tmp_path_to_file
 
+from separators import Separator, SeparatorList
 
 SEPARATOR_LIST_SAMPLE = SeparatorList(
     [
