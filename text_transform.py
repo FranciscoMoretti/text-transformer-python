@@ -32,8 +32,8 @@ class TextLine:
 
 def find_lines_that_contains_strings(
     lines: List[str], match_patterns: List[str]
-) -> List[TextLine]:
-    lines_by_match_pattern: Dict[str, List[str]] = {
+) -> Dict[str, List[TextLine]]:
+    lines_by_match_pattern: Dict[str, List[TextLine]] = {
         match_pattern: [] for match_pattern in match_patterns
     }
     for line_number, line_text in enumerate(lines):
