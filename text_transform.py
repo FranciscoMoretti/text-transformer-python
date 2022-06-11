@@ -9,8 +9,8 @@ from typing import Dict, List
 from separators_reader import SeparatorsReader
 from virtual_file import VirtualFileIO
 
-INPUT_TEXT_FILE_PATH = Path("./.sandbox/CppCoreGuidelines.md")
-INPUT_SEPARATORS_FILE_PATH = Path("./.sandbox/separators.json")
+INPUT_TEXT_FILE_PATH = Path(".sandbox/CppCoreGuidelines.md")
+INPUT_SEPARATORS_FILE_PATH = Path(".sandbox/separators.json")
 
 input_file = VirtualFileIO.read_from_path(INPUT_TEXT_FILE_PATH)
 
