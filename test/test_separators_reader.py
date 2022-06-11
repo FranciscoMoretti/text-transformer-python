@@ -1,4 +1,6 @@
 import json
+from pathlib import Path
+from separators_reader import SeparatorsReader
 from test.utils.tmp_path import _get_tmp_path_to_file
 
 from separators import Separator, SeparatorList
@@ -24,7 +26,7 @@ SEPARATOR_LIST_SAMPLE = SeparatorList(
 
 
 def test_from_dict():
-    assert SEPARATOR_LIST_SAMPLE == SeparatorList.from_list_of_dictionaries(
+    assert SEPARATOR_LIST_SAMPLE == SeparatorsReader.from_list_of_dictionaries(
         SEPARATOR_LIST_DICT_SAMPLE
     )
 
@@ -32,4 +34,14 @@ def test_from_dict():
 def test_from_json(tmp_path):
     filepath = _get_tmp_path_to_file(tmp_path)
     filepath.write_text(json.dumps(SEPARATOR_LIST_DICT_SAMPLE))
-    assert SEPARATOR_LIST_SAMPLE == SeparatorList.from_json_file(filepath)
+    assert SEPARATOR_LIST_SAMPLE == SeparatorsReader.from_json_file(filepath)
+
+
+PATH_TO_SEPARATORS_SAMPLE_FILE = Path("./test/separators_sample.json")
+
+
+def test_read_from_file():
+    expected_list = SeparatorList([Separator(name="foo", value='foo="bar"')])
+    assert expected_list == SeparatorsReader.from_json_file(
+        PATH_TO_SEPARATORS_SAMPLE_FILE
+    )
