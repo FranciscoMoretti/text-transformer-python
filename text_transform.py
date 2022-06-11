@@ -6,14 +6,14 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List
 
-from separators import Separator, SeparatorList
+from separators_reader import SeparatorsReader
 from virtual_file import VirtualFile, VirtualFileIO
 
 
 L = ["Geeks\n", "for\n", "Geeks\n"]
 
 VirtualFileIO.save_to_real_file(
-    virtual_file=VirtualFile(lines=L, path=Path("myfile.txt"))
+    virtual_file=VirtualFile(lines=L, path=Path("./.sandbox/myfile.txt"))
 )
 
 # using readlines()
@@ -21,7 +21,7 @@ count = 0
 print("Using readlines()")
 
 
-input_file = VirtualFileIO.read_from_path(Path("CppCoreGuidelines.md"))
+input_file = VirtualFileIO.read_from_path(Path("./.sandbox/CppCoreGuidelines.md"))
 
 
 @dataclass
@@ -45,12 +45,8 @@ def find_lines_that_contains_strings(
     return lines_by_match_pattern
 
 
-file_starter_separators = SeparatorList(
-    [
-        Separator(name="main", value='name="main"'),
-        Separator(name="abstract", value='name="S-abstract"'),
-        Separator(name="introduction", value='name="S-introduction"'),
-    ]
+file_starter_separators = SeparatorsReader.from_json_file(
+    Path("./.sandbox/separators.json")
 )
 
 lines_of_separators = find_lines_that_contains_strings(
