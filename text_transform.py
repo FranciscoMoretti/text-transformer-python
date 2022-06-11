@@ -7,14 +7,7 @@ from pathlib import Path
 from typing import Dict, List
 
 from separators_reader import SeparatorsReader
-from virtual_file import VirtualFile, VirtualFileIO
-
-
-L = ["Geeks\n", "for\n", "Geeks\n"]
-
-VirtualFileIO.save_to_real_file(
-    virtual_file=VirtualFile(lines=L, path=Path("./.sandbox/myfile.txt"))
-)
+from virtual_file import VirtualFileIO
 
 
 input_file = VirtualFileIO.read_from_path(Path("./.sandbox/CppCoreGuidelines.md"))
