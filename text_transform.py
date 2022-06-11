@@ -16,10 +16,6 @@ VirtualFileIO.save_to_real_file(
     virtual_file=VirtualFile(lines=L, path=Path("./.sandbox/myfile.txt"))
 )
 
-# using readlines()
-count = 0
-print("Using readlines()")
-
 
 input_file = VirtualFileIO.read_from_path(Path("./.sandbox/CppCoreGuidelines.md"))
 
