@@ -1,4 +1,3 @@
-from fileinput import filename
 from pathlib import Path
 
 from separators_reader import SeparatorsReader
