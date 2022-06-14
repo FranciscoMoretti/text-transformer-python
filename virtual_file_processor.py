@@ -1,7 +1,5 @@
-from dataclasses import dataclass
-from pathlib import Path
 from typing import Dict, List
-from separators import Separator, SeparatorList
+from separators import SeparatorList
 from text_line import TextLine
 
 from virtual_file import VirtualFile
