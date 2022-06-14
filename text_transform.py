@@ -1,8 +1,6 @@
 from pathlib import Path
-from typing import Dict, List
 
 from separators_reader import SeparatorsReader
-from text_line import TextLine
 from virtual_file import VirtualFileIO
 from virtual_file_processor import VirtualFileProcessor
 
