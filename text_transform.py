@@ -37,5 +37,3 @@ for (current_key, current_lines), (_, next_lines) in pairwise(
 
 for file in separated_files:
     VirtualFileIO.save_to_real_file(virtual_file=file)
-
-print(lines_of_separators)
