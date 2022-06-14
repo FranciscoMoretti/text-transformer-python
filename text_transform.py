@@ -4,11 +4,14 @@ from typing import Dict, List
 from separators_reader import SeparatorsReader
 from text_line import TextLine
 from virtual_file import VirtualFileIO
+from virtual_file_processor import VirtualFileProcessor
 
 INPUT_TEXT_FILE_PATH = Path(".sandbox/CppCoreGuidelines.md")
 INPUT_SEPARATORS_FILE_PATH = Path(".sandbox/separators.json")
 
 input_file = VirtualFileIO.read_from_path(INPUT_TEXT_FILE_PATH)
+
+file_processor = VirtualFileProcessor(input_file)
 
 
 def find_lines_that_contains_strings(
@@ -28,8 +31,8 @@ def find_lines_that_contains_strings(
 
 file_starter_separators = SeparatorsReader.from_json_file(INPUT_SEPARATORS_FILE_PATH)
 
-lines_of_separators = find_lines_that_contains_strings(
-    input_file.lines, file_starter_separators.get_values()
+lines_of_separators = file_processor._find_lines_that_contains_strings(
+    file_starter_separators.get_values()
 )
 
 print(lines_of_separators)
