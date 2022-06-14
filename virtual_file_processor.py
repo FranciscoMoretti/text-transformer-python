@@ -19,7 +19,7 @@ class VirtualFileProcessor:
         named_patterns: SeparatorList,
     ) -> Dict[str, List[TextLine]]:
         lines_by_match_pattern: Dict[str, List[TextLine]] = {
-            match_pattern: [] for match_pattern in named_patterns
+            match_pattern.name: [] for match_pattern in named_patterns
         }
         for line_number, line_text in enumerate(self.virtual_file.lines):
             for match_pattern in named_patterns:
