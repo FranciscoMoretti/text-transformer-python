@@ -11,12 +11,12 @@ class VirtualFileProcessor:
     def __init__(self, virtual_file: VirtualFile) -> None:
         self.virtual_file = virtual_file
 
-    def get_text_lines_of_separators(
+    def get_text_lines_that_match_separators(
         self, separators: SeparatorList
     ) -> Dict[str, List[TextLine]]:
-        return self._find_lines_that_contains_pattern(separators)
+        return self._get_lines_that_contains_patterns(separators)
 
-    def _find_lines_that_contains_pattern(
+    def _get_lines_that_contains_patterns(
         self,
         named_patterns: SeparatorList,
     ) -> Dict[str, List[TextLine]]:

@@ -31,7 +31,7 @@ def find_lines_that_contains_strings(
 
 file_starter_separators = SeparatorsReader.from_json_file(INPUT_SEPARATORS_FILE_PATH)
 
-lines_of_separators = file_processor._find_lines_that_contains_pattern(
+lines_of_separators = file_processor.get_text_lines_that_match_separators(
     file_starter_separators
 )
 
