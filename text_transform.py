@@ -1,20 +1,14 @@
-from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List
 
 from separators_reader import SeparatorsReader
+from text_line import TextLine
 from virtual_file import VirtualFileIO
 
 INPUT_TEXT_FILE_PATH = Path(".sandbox/CppCoreGuidelines.md")
 INPUT_SEPARATORS_FILE_PATH = Path(".sandbox/separators.json")
 
 input_file = VirtualFileIO.read_from_path(INPUT_TEXT_FILE_PATH)
-
-
-@dataclass
-class TextLine:
-    text: str
-    line_number: int
 
 
 def find_lines_that_contains_strings(
