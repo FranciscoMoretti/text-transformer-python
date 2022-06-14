@@ -1,4 +1,4 @@
-from typing import Dict, List
+from typing import Dict, List, Optional
 from separators import SeparatorList
 from text_line import TextLine
 
@@ -8,6 +8,17 @@ from virtual_file import VirtualFile
 class VirtualFileProcessor:
     def __init__(self, virtual_file: VirtualFile) -> None:
         self.virtual_file = virtual_file
+
+    def get_raw_lines_in_range(
+        self,
+        start_line: Optional[int] = 0,
+        end_line: Optional[int] = None,
+    ) -> List[str]:
+        if start_line is None:
+            start_line = 0
+        if end_line is None:
+            end_line = len(self.virtual_file.lines) + 1
+        return self.virtual_file.lines[start_line:end_line]
 
     def get_text_lines_that_match_separators(
         self, separators: SeparatorList
