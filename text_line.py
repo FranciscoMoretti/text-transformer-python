@@ -1,7 +1,6 @@
-from dataclasses import dataclass
+from pydantic import BaseModel
 
 
-@dataclass
-class TextLine:
+class TextLine(BaseModel):
     text: str
     line_number: int
