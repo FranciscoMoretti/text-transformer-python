@@ -22,16 +22,16 @@ class VirtualFileProcessor:
 
     def get_text_lines_that_match_separators(
         self, separators: SeparatorList
-    ) -> Dict[str, List[TextLine]]:
+    ) -> OrderedDict[str, List[TextLine]]:
         return self._get_lines_that_contains_patterns(separators)
 
     def _get_lines_that_contains_patterns(
         self,
         named_patterns: SeparatorList,
-    ) -> Dict[str, List[TextLine]]:
-        lines_by_match_pattern: Dict[str, List[TextLine]] = {
-            match_pattern.name: [] for match_pattern in named_patterns
-        }
+    ) -> OrderedDict[str, List[TextLine]]:
+        lines_by_match_pattern: OrderedDict[str, List[TextLine]] = OrderedDict(
+            {match_pattern.name: [] for match_pattern in named_patterns}
+        )
         for line_number, line_text in enumerate(self.virtual_file.lines):
             for match_pattern in named_patterns:
                 if match_pattern.value in line_text:
