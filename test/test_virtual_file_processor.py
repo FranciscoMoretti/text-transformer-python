@@ -38,3 +38,19 @@ def test_get_text_lines_that_match_separators():
     assert all_items_have_one_item_in_them(list(matched_lines.values()))
     assert matched_lines["foo"][0] == TextLine(text=MULTILINE_CONTENT[0], line_number=0)
     assert matched_lines["bar"][0] == TextLine(text=MULTILINE_CONTENT[2], line_number=2)
+
+
+def test_split_files_by_separators():
+    file_processor = VirtualFileProcessor(VIRTUAL_FILE)
+    separators = SeparatorList(
+        [
+            Separator(name="foo", value="Line 1"),
+            Separator(name="bar", value="Line 3"),
+            Separator(name="baz", value="Line 6"),
+        ]
+    )
+    output_files = file_processor.split_files_with_separators(separators=separators)
+    assert len(output_files) == 3
+    assert all(isinstance(file, VirtualFile) for file in output_files)
+    assert output_files[1].path == Path("bar")
+    assert output_files[1].lines == MULTILINE_CONTENT[2:5]
