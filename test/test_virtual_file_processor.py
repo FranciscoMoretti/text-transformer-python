@@ -2,8 +2,7 @@ from pathlib import Path
 from virtual_file import VirtualFile
 from virtual_file_processor import VirtualFileProcessor
 
-
-MULTILINE_CONTENT = ["Line 1\n", "Line 2\n", "Line 3\n", "Line 3\n"]
+MULTILINE_CONTENT = ["Line 1\n", "Line 2\n", "Line 3\n", "Line 4\n"]
 VIRTUAL_FILE = VirtualFile(lines=MULTILINE_CONTENT, path=Path())
 
 
