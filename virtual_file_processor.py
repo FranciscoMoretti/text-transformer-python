@@ -35,7 +35,7 @@ class VirtualFileProcessor:
         ]
 
         # TODO: this shouldn't be necessary if we use the right types
-        all_items_have_one_item_in_them([lines_of_separators.values()])
+        all_items_have_one_item_in_them(list(lines_of_separators.values()))
 
         separated_files = []
         for (current_key, current_lines), (_, next_lines) in pairwise(
