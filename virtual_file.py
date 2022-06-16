@@ -2,11 +2,19 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import List
 
+from text_line import TextLine
+
 
 @dataclass
 class VirtualFile:
     lines: List[str]
     path: Path
+
+    def get_text_lines(self) -> List[TextLine]:
+        return [
+            TextLine(line_number=number, text=text)
+            for number, text in enumerate(self.lines)
+        ]
 
 
 class VirtualFileIO:
