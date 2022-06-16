@@ -51,7 +51,7 @@ class VirtualFileProcessor:
     def get_matched_lines_by_patterns(
         self, patterns: PatternList
     ) -> OrderedDict[str, List[TextLine]]:
-        matchings = self._get_line_matchings_of_patterns(patterns)
+        matchings = self.get_line_matchings_of_patterns(patterns)
         lines_by_pattern: OrderedDict[str, List[TextLine]] = OrderedDict(
             {pattern.name: [] for pattern in patterns}
         )
@@ -59,7 +59,7 @@ class VirtualFileProcessor:
             lines_by_pattern[matching.pattern_name].append(matching.text_line)
         return lines_by_pattern
 
-    def _get_line_matchings_of_patterns(
+    def get_line_matchings_of_patterns(
         self,
         patterns: PatternList,
     ) -> List[Matching]:
