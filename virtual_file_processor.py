@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Dict, List, Optional, OrderedDict
+from typing import List, Optional, OrderedDict
 from separators import SeparatorList
 from text_line import TextLine
 from utils import all_items_have_one_item_in_them, pairwise
