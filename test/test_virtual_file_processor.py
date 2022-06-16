@@ -1,5 +1,5 @@
 from pathlib import Path
-from separators import Separator, SeparatorList
+from patterns import Pattern, PatternList
 from text_line import TextLine
 from utils import all_items_have_one_item_in_them
 from virtual_file import VirtualFile
@@ -27,14 +27,12 @@ def test_get_raw_lines_in_range():
     )
 
 
-def test_get_text_lines_that_match_separators():
+def test_get_text_lines_that_match_patterns():
     file_processor = VirtualFileProcessor(VIRTUAL_FILE)
-    separators = SeparatorList(
-        [Separator(name="foo", value="Line 1"), Separator(name="bar", value="Line 3")]
+    patterns = PatternList(
+        [Pattern(name="foo", value="Line 1"), Pattern(name="bar", value="Line 3")]
     )
-    matched_lines = file_processor.get_text_lines_that_match_separators(
-        separators=separators
-    )
+    matched_lines = file_processor.get_text_lines_that_match_patterns(patterns=patterns)
     assert all_items_have_one_item_in_them(list(matched_lines.values()))
     assert matched_lines["foo"][0] == TextLine(text=MULTILINE_CONTENT[0], line_number=0)
     assert matched_lines["bar"][0] == TextLine(text=MULTILINE_CONTENT[2], line_number=2)
@@ -42,11 +40,11 @@ def test_get_text_lines_that_match_separators():
 
 def test_split_files_by_separators():
     file_processor = VirtualFileProcessor(VIRTUAL_FILE)
-    separators = SeparatorList(
+    separators = PatternList(
         [
-            Separator(name="foo", value="Line 1"),
-            Separator(name="bar", value="Line 3"),
-            Separator(name="baz", value="Line 6"),
+            Pattern(name="foo", value="Line 1"),
+            Pattern(name="bar", value="Line 3"),
+            Pattern(name="baz", value="Line 6"),
         ]
     )
     output_files = file_processor.split_files_with_separators(separators=separators)

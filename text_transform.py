@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from separators_reader import SeparatorsReader
+from patterns_reader import PatternsReader
 from utils import all_items_have_one_item_in_them, pairwise
 from virtual_file import VirtualFile, VirtualFileIO
 from virtual_file_processor import VirtualFileProcessor
@@ -9,11 +9,11 @@ INPUT_TEXT_FILE_PATH = Path(".sandbox/CppCoreGuidelines.md")
 INPUT_SEPARATORS_FILE_PATH = Path(".sandbox/separators.json")
 OUTPUT_DIRECTORY_PATH = Path(".sandbox/output")
 
-file_starter_separators = SeparatorsReader.from_json_file(INPUT_SEPARATORS_FILE_PATH)
+file_starter_separators = PatternsReader.from_json_file(INPUT_SEPARATORS_FILE_PATH)
 
 input_file = VirtualFileIO.read_from_path(INPUT_TEXT_FILE_PATH)
 file_processor = VirtualFileProcessor(input_file)
-lines_of_separators = file_processor.get_text_lines_that_match_separators(
+lines_of_separators = file_processor.get_text_lines_that_match_patterns(
     file_starter_separators
 )
 
