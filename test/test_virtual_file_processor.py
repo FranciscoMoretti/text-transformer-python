@@ -1,4 +1,3 @@
-from nis import match
 from pathlib import Path
 from separators import Separator, SeparatorList
 from text_line import TextLine
