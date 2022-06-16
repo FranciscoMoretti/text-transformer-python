@@ -27,12 +27,12 @@ def test_get_raw_lines_in_range():
     )
 
 
-def test_get_text_lines_that_match_patterns():
+def test_get_matchings_of_patterns():
     file_processor = VirtualFileProcessor(VIRTUAL_FILE)
     patterns = PatternList(
         [Pattern(name="foo", value="Line 1"), Pattern(name="bar", value="Line 3")]
     )
-    matched_lines = file_processor.get_text_lines_that_match_patterns(patterns=patterns)
+    matched_lines = file_processor.get_matched_lines_by_patterns(patterns=patterns)
     assert all_items_have_one_item_in_them(list(matched_lines.values()))
     assert matched_lines["foo"][0] == TextLine(text=MULTILINE_CONTENT[0], line_number=0)
     assert matched_lines["bar"][0] == TextLine(text=MULTILINE_CONTENT[2], line_number=2)

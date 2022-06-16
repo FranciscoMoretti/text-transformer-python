@@ -13,7 +13,7 @@ file_starter_separators = PatternsReader.from_json_file(INPUT_SEPARATORS_FILE_PA
 
 input_file = VirtualFileIO.read_from_path(INPUT_TEXT_FILE_PATH)
 file_processor = VirtualFileProcessor(input_file)
-lines_of_separators = file_processor.get_text_lines_that_match_patterns(
+lines_of_separators = file_processor.get_matched_lines_by_patterns(
     file_starter_separators
 )
 
