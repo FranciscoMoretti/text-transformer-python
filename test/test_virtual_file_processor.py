@@ -6,7 +6,15 @@ from utils import all_items_have_one_item_in_them
 from virtual_file import VirtualFile
 from virtual_file_processor import VirtualFileProcessor
 
-MULTILINE_CONTENT = ["Line 1\n", "Line 2\n", "Line 3\n", "Line 4\n"]
+MULTILINE_CONTENT = [
+    "Line 1\n",
+    "Line 2\n",
+    "Line 3\n",
+    "Line 4\n",
+    "Line 5\n",
+    "Line 6\n",
+    "Line 7\n",
+]
 VIRTUAL_FILE = VirtualFile(lines=MULTILINE_CONTENT, path=Path())
 
 
