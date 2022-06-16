@@ -65,12 +65,13 @@ class VirtualFileProcessor:
     ) -> List[Matching]:
         line_matchings: List[Matching] = []
         for text_line in self.virtual_file.get_text_lines():
-            for pattern in patterns:
-                if pattern.value in text_line.text:
-                    line_matchings.append(
-                        Matching(
-                            pattern_name=pattern.name,
-                            text_line=text_line,
-                        )
-                    )
+            line_matchings.extend(
+                Matching(
+                    pattern_name=pattern.name,
+                    text_line=text_line,
+                )
+                for pattern in patterns
+                if pattern.value in text_line.text
+            )
+
         return line_matchings
