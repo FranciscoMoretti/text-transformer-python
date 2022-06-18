@@ -1,5 +1,4 @@
 from collections import UserList
-import inspect
 import re
 from typing import List
 
