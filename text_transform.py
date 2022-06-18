@@ -2,8 +2,8 @@ from pathlib import Path
 from pattern_registry import PatternRegistry
 
 from patterns_reader import PatternsReader
-from utils import all_items_have_one_item_in_them, pairwise
-from virtual_file import VirtualFile, VirtualFileIO
+from utils import all_items_have_one_item_in_them
+from virtual_file import VirtualFileIO
 from virtual_file_processor import VirtualFileProcessor
 
 INPUT_TEXT_FILE_PATH = Path(".sandbox/CppCoreGuidelines.md")
@@ -20,7 +20,7 @@ lines_of_separators = file_processor.get_matched_lines_by_patterns(separator_reg
 assert all_items_have_one_item_in_them(list_of_lists=list(lines_of_separators.values()))
 
 separated_files = file_processor.split_files_with_separators(
-    separators=file_starter_separators
+    separators=separator_registry
 )
 
 for file in separated_files:
