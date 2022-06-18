@@ -71,7 +71,7 @@ class VirtualFileProcessor:
                     text_line=text_line,
                 )
                 for pattern in patterns
-                if pattern.get_value() in text_line.text
+                if pattern.get_pattern() in text_line.text
             )
 
         return line_matchings

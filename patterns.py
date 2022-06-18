@@ -11,7 +11,7 @@ class Pattern(BaseModel):
     regex: re.Pattern
 
     def __init__(self, value: str, name: str) -> None:
-        super().__init__(value=re.compile(value), name=name)
+        super().__init__(regex=re.compile(value), name=name)
 
     def get_regex(self):
         return self.regex
