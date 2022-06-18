@@ -12,6 +12,9 @@ class Pattern(BaseModel):
     def get_regex(self):
         return re.compile(self.value)
 
+    def get_value(self):
+        return self.value
+
 
 class PatternList(UserList):
     def __init__(self, initlist=None) -> None:
@@ -19,7 +22,7 @@ class PatternList(UserList):
         self.data: List[Pattern]
 
     def get_values(self) -> List[str]:
-        return [pattern.value for pattern in self.data]
+        return [pattern.get_value() for pattern in self.data]
 
     def get_regexps(self) -> List[re.Pattern]:
         return [pattern.get_regex() for pattern in self.data]
