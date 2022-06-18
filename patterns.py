@@ -26,9 +26,6 @@ class Pattern(BaseModel):
     # pylint: enable=too-few-public-methods
 
 
-print(inspect.signature(Pattern))
-
-
 class PatternList(UserList):
     def __init__(self, initlist=None) -> None:
         super().__init__(initlist)
