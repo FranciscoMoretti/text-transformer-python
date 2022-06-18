@@ -16,7 +16,7 @@ class Pattern(BaseModel):
     def get_regex(self):
         return self.regex
 
-    def get_value(self):
+    def get_pattern(self):
         return self.regex.pattern
 
     # pylint: disable=too-few-public-methods
@@ -34,8 +34,8 @@ class PatternList(UserList):
         super().__init__(initlist)
         self.data: List[Pattern]
 
-    def get_values(self) -> List[str]:
-        return [pattern.get_value() for pattern in self.data]
+    def get_patterns(self) -> List[str]:
+        return [pattern.get_pattern() for pattern in self.data]
 
     def get_regexps(self) -> List[re.Pattern]:
         return [pattern.get_regex() for pattern in self.data]

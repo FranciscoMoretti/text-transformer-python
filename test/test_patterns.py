@@ -12,7 +12,7 @@ SEPARATOR_LIST_SAMPLE = PatternList(
 
 
 def test_get_values():
-    assert SEPARATOR_LIST_SAMPLE.get_values() == [
+    assert SEPARATOR_LIST_SAMPLE.get_patterns() == [
         pattern["value"] for pattern in PATTERNS
     ]
 
