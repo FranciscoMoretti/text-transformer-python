@@ -11,6 +11,6 @@ SEPARATOR_LIST_SAMPLE = NamedPatternList(
 )
 
 
-def test_patterns_registry():
+def test_patterns_registry_construction():
     patterns_registry = PatternRegistry(patterns=SEPARATOR_LIST_SAMPLE)
     assert isinstance(patterns_registry, PatternRegistry)
