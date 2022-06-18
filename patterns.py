@@ -6,7 +6,7 @@ from typing import List
 from pydantic import BaseModel
 
 
-class Pattern(BaseModel):
+class NamedPattern(BaseModel):
     name: str
     regex: re.Pattern
 
@@ -29,7 +29,7 @@ class Pattern(BaseModel):
 class PatternList(UserList):
     def __init__(self, initlist=None) -> None:
         super().__init__(initlist)
-        self.data: List[Pattern]
+        self.data: List[NamedPattern]
 
     def get_patterns(self) -> List[str]:
         return [pattern.get_pattern() for pattern in self.data]

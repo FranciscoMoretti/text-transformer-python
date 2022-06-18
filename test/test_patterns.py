@@ -1,5 +1,5 @@
 import re
-from patterns import Pattern, PatternList
+from patterns import NamedPattern, PatternList
 
 PATTERNS = [
     {"value": "foo_value", "name": "foo"},
@@ -7,7 +7,7 @@ PATTERNS = [
 ]
 
 SEPARATOR_LIST_SAMPLE = PatternList(
-    [Pattern(name=pattern["name"], value=pattern["value"]) for pattern in PATTERNS]
+    [NamedPattern(name=pattern["name"], value=pattern["value"]) for pattern in PATTERNS]
 )
 
 

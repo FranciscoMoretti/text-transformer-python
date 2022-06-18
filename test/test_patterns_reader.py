@@ -3,7 +3,7 @@ from pathlib import Path
 from patterns_reader import PatternsReader
 from test.utils.tmp_path import _get_tmp_path_to_file
 
-from patterns import Pattern, PatternList
+from patterns import NamedPattern, PatternList
 
 
 PATTERN_LIST_DICT_SAMPLE = [
@@ -19,8 +19,8 @@ PATTERN_LIST_DICT_SAMPLE = [
 
 PATTERN_LIST_SAMPLE = PatternList(
     [
-        Pattern(name="foo", value="foo_value"),
-        Pattern(name="bar", value="bar_value"),
+        NamedPattern(name="foo", value="foo_value"),
+        NamedPattern(name="bar", value="bar_value"),
     ]
 )
 
@@ -41,5 +41,5 @@ PATH_TO_PATTERNS_SAMPLE_FILE = Path("./test/patterns_sample.json")
 
 
 def test_read_from_file():
-    expected_list = PatternList([Pattern(name="foo", value='foo="bar"')])
+    expected_list = PatternList([NamedPattern(name="foo", value='foo="bar"')])
     assert expected_list == PatternsReader.from_json_file(PATH_TO_PATTERNS_SAMPLE_FILE)

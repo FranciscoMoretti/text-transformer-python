@@ -1,5 +1,5 @@
 from pathlib import Path
-from patterns import Pattern, PatternList
+from patterns import NamedPattern, PatternList
 from text_line import TextLine
 from utils import all_items_have_one_item_in_them
 from virtual_file import VirtualFile
@@ -30,7 +30,10 @@ def test_get_raw_lines_in_range():
 def test_get_matchings_of_patterns():
     file_processor = VirtualFileProcessor(VIRTUAL_FILE)
     patterns = PatternList(
-        [Pattern(name="foo", value="Line 1"), Pattern(name="bar", value="Line 3")]
+        [
+            NamedPattern(name="foo", value="Line 1"),
+            NamedPattern(name="bar", value="Line 3"),
+        ]
     )
     matched_lines = file_processor.get_matched_lines_by_patterns(patterns=patterns)
     assert all_items_have_one_item_in_them(list(matched_lines.values()))
@@ -42,9 +45,9 @@ def test_split_files_by_separators():
     file_processor = VirtualFileProcessor(VIRTUAL_FILE)
     separators = PatternList(
         [
-            Pattern(name="foo", value="Line 1"),
-            Pattern(name="bar", value="Line 3"),
-            Pattern(name="baz", value="Line 6"),
+            NamedPattern(name="foo", value="Line 1"),
+            NamedPattern(name="bar", value="Line 3"),
+            NamedPattern(name="baz", value="Line 6"),
         ]
     )
     output_files = file_processor.split_files_with_separators(separators=separators)

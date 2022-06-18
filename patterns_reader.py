@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from typing import Dict, List
 
-from patterns import Pattern, PatternList
+from patterns import NamedPattern, PatternList
 
 
 class PatternsReader:
@@ -15,4 +15,4 @@ class PatternsReader:
 
     @staticmethod
     def from_list_of_dictionaries(list_of_dict: List[Dict[str, str]]):
-        return PatternList([Pattern(**dictionary) for dictionary in list_of_dict])
+        return PatternList([NamedPattern(**dictionary) for dictionary in list_of_dict])
