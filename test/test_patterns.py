@@ -1,3 +1,4 @@
+import re
 from patterns import Pattern, PatternList
 
 PATTERNS = [
@@ -13,4 +14,10 @@ SEPARATOR_LIST_SAMPLE = PatternList(
 def test_get_values():
     assert SEPARATOR_LIST_SAMPLE.get_values() == [
         pattern["value"] for pattern in PATTERNS
+    ]
+
+
+def test_get_regexps():
+    assert SEPARATOR_LIST_SAMPLE.get_regexps() == [
+        re.compile(pattern["value"]) for pattern in PATTERNS
     ]
