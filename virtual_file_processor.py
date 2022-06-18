@@ -58,7 +58,9 @@ class VirtualFileProcessor:
             {pattern.name: [] for pattern in patterns}
         )
         for matching in matchings:
-            lines_by_pattern[matching.pattern_name].append(matching.text_line)
+            lines_by_pattern[matching.pattern_name].append(
+                TextLine(text=matching.match.string, line_number=matching.line_number)
+            )
         return lines_by_pattern
 
     def get_line_matchings_of_patterns(
@@ -67,13 +69,14 @@ class VirtualFileProcessor:
     ) -> List[Matching]:
         line_matchings: List[Matching] = []
         for text_line in self.virtual_file.get_text_lines():
-            line_matchings.extend(
-                Matching(
-                    pattern_name=pattern.name,
-                    text_line=text_line,
-                )
-                for pattern in patterns
-                if pattern.get_pattern() in text_line.text
-            )
+            for pattern in patterns:
+                if match := pattern.regex.match(text_line.text):
+                    line_matchings.append(
+                        Matching(
+                            pattern_name=pattern.name,
+                            line_number=text_line.line_number,
+                            match=match,
+                        )
+                    )
 
         return line_matchings
