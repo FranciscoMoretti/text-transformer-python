@@ -8,16 +8,16 @@ from pydantic import BaseModel, validator
 
 class Pattern(BaseModel):
     name: str
-    value: re.Pattern
+    regex: re.Pattern
 
     def __init__(self, value: str, name: str) -> None:
         super().__init__(value=re.compile(value), name=name)
 
     def get_regex(self):
-        return self.value
+        return self.regex
 
     def get_value(self):
-        return self.value.pattern
+        return self.regex.pattern
 
     # pylint: disable=too-few-public-methods
     class Config:
