@@ -3,7 +3,7 @@ from pathlib import Path
 from patterns_reader import PatternsReader
 from test.utils.tmp_path import _get_tmp_path_to_file
 
-from patterns import NamedPattern, NamedPatternList
+from named_patterns import NamedPattern, NamedPatternList
 
 
 PATTERN_LIST_DICT_SAMPLE = [

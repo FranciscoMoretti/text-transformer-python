@@ -1,5 +1,5 @@
 import re
-from patterns import NamedPattern, NamedPatternList
+from named_patterns import NamedPattern, NamedPatternList
 
 PATTERNS = [
     {"value": "foo_value", "name": "foo"},

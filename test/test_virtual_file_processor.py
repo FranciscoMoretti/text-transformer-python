@@ -1,5 +1,5 @@
 from pathlib import Path
-from patterns import NamedPattern, NamedPatternList
+from named_patterns import NamedPattern, NamedPatternList
 from text_line import TextLine
 from utils import all_items_have_one_item_in_them
 from virtual_file import VirtualFile

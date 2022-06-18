@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import List, Optional, OrderedDict
 from matching import Matching
-from patterns import NamedPatternList
+from named_patterns import NamedPatternList
 from text_line import TextLine
 from utils import all_items_have_one_item_in_them, pairwise
 

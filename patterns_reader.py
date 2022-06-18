@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from typing import Dict, List
 
-from patterns import NamedPattern, NamedPatternList
+from named_patterns import NamedPattern, NamedPatternList
 
 
 class PatternsReader:
