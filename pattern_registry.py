@@ -21,3 +21,6 @@ class PatternRegistry:
                     )
                 )
         return line_matchings
+
+    def get_pattern_names(self) -> List[str]:
+        return [pattern.name for pattern in self.patterns]

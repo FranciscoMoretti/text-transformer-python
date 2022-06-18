@@ -2,6 +2,7 @@ from pathlib import Path
 from typing import List, Optional, OrderedDict
 from matching import Matching
 from named_patterns import NamedPatternList
+from pattern_registry import PatternRegistry
 from text_line import TextLine
 from utils import all_items_have_one_item_in_them, pairwise
 
@@ -24,7 +25,7 @@ class VirtualFileProcessor:
         return self.virtual_file.lines[start_line:end_line]
 
     def split_files_with_separators(
-        self, separators: NamedPatternList
+        self, separators: PatternRegistry
     ) -> List[VirtualFile]:
         lines_of_separators = self.get_matched_lines_by_patterns(patterns=separators)
 
@@ -51,11 +52,11 @@ class VirtualFileProcessor:
         return separated_files
 
     def get_matched_lines_by_patterns(
-        self, patterns: NamedPatternList
+        self, patterns: PatternRegistry
     ) -> OrderedDict[str, List[TextLine]]:
         matchings = self.get_line_matchings_of_patterns(patterns)
         lines_by_pattern: OrderedDict[str, List[TextLine]] = OrderedDict(
-            {pattern.name: [] for pattern in patterns}
+            {pattern_name: [] for pattern_name in patterns.get_pattern_names()}
         )
         for matching in matchings:
             lines_by_pattern[matching.pattern_name].append(
@@ -65,18 +66,11 @@ class VirtualFileProcessor:
 
     def get_line_matchings_of_patterns(
         self,
-        patterns: NamedPatternList,
+        patterns: PatternRegistry,
     ) -> List[Matching]:
         line_matchings: List[Matching] = []
         for text_line in self.virtual_file.get_text_lines():
-            for pattern in patterns:
-                if match := pattern.regex.match(text_line.text):
-                    line_matchings.append(
-                        Matching(
-                            pattern_name=pattern.name,
-                            line_number=text_line.line_number,
-                            match=match,
-                        )
-                    )
-
+            line_matchings.extend(
+                patterns.search_matchings_in_text_line(text_line=text_line)
+            )
         return line_matchings

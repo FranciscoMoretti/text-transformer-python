@@ -1,5 +1,6 @@
 from pathlib import Path
 from named_patterns import NamedPattern, NamedPatternList
+from pattern_registry import PatternRegistry
 from text_line import TextLine
 from utils import all_items_have_one_item_in_them
 from virtual_file import VirtualFile
@@ -35,7 +36,10 @@ def test_get_matchings_of_patterns():
             NamedPattern(name="bar", value="Line 3"),
         ]
     )
-    matched_lines = file_processor.get_matched_lines_by_patterns(patterns=patterns)
+    pattern_registry = PatternRegistry(patterns)
+    matched_lines = file_processor.get_matched_lines_by_patterns(
+        patterns=pattern_registry
+    )
     assert all_items_have_one_item_in_them(list(matched_lines.values()))
     assert matched_lines["foo"][0] == TextLine(text=MULTILINE_CONTENT[0], line_number=0)
     assert matched_lines["bar"][0] == TextLine(text=MULTILINE_CONTENT[2], line_number=2)
@@ -50,7 +54,10 @@ def test_split_files_by_separators():
             NamedPattern(name="baz", value="Line 6"),
         ]
     )
-    output_files = file_processor.split_files_with_separators(separators=separators)
+    pattern_registry = PatternRegistry(separators)
+    output_files = file_processor.split_files_with_separators(
+        separators=pattern_registry
+    )
     assert len(output_files) == 3
     assert all(isinstance(file, VirtualFile) for file in output_files)
     assert output_files[1].path == Path("bar")
