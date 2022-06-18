@@ -1,12 +1,12 @@
 import re
-from patterns import NamedPattern, PatternList
+from patterns import NamedPattern, NamedPatternList
 
 PATTERNS = [
     {"value": "foo_value", "name": "foo"},
     {"value": "bar_value", "name": "bar"},
 ]
 
-SEPARATOR_LIST_SAMPLE = PatternList(
+SEPARATOR_LIST_SAMPLE = NamedPatternList(
     [NamedPattern(name=pattern["name"], value=pattern["value"]) for pattern in PATTERNS]
 )
 

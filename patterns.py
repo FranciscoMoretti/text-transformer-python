@@ -26,7 +26,7 @@ class NamedPattern(BaseModel):
     # pylint: enable=too-few-public-methods
 
 
-class PatternList(UserList):
+class NamedPatternList(UserList):
     def __init__(self, initlist=None) -> None:
         super().__init__(initlist)
         self.data: List[NamedPattern]

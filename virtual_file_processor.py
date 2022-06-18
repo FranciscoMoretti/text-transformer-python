@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import List, Optional, OrderedDict
 from matching import Matching
-from patterns import PatternList
+from patterns import NamedPatternList
 from text_line import TextLine
 from utils import all_items_have_one_item_in_them, pairwise
 
@@ -23,7 +23,9 @@ class VirtualFileProcessor:
             end_line = len(self.virtual_file.lines) + 1
         return self.virtual_file.lines[start_line:end_line]
 
-    def split_files_with_separators(self, separators: PatternList) -> List[VirtualFile]:
+    def split_files_with_separators(
+        self, separators: NamedPatternList
+    ) -> List[VirtualFile]:
         lines_of_separators = self.get_matched_lines_by_patterns(patterns=separators)
 
         # TODO: refactor in order to avoid this hack of adding a fake line
@@ -49,7 +51,7 @@ class VirtualFileProcessor:
         return separated_files
 
     def get_matched_lines_by_patterns(
-        self, patterns: PatternList
+        self, patterns: NamedPatternList
     ) -> OrderedDict[str, List[TextLine]]:
         matchings = self.get_line_matchings_of_patterns(patterns)
         lines_by_pattern: OrderedDict[str, List[TextLine]] = OrderedDict(
@@ -61,7 +63,7 @@ class VirtualFileProcessor:
 
     def get_line_matchings_of_patterns(
         self,
-        patterns: PatternList,
+        patterns: NamedPatternList,
     ) -> List[Matching]:
         line_matchings: List[Matching] = []
         for text_line in self.virtual_file.get_text_lines():
