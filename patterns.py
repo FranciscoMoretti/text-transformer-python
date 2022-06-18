@@ -1,19 +1,32 @@
 from collections import UserList
+import inspect
 import re
 from typing import List
 
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
 
 
 class Pattern(BaseModel):
     name: str
-    value: str
+    value: re.Pattern
+
+    def __init__(self, value: str, name: str, **data) -> None:
+        super().__init__(value=re.compile(value), name=name)
 
     def get_regex(self):
-        return re.compile(self.value)
+        return self.value
 
     def get_value(self):
-        return self.value
+        return self.value.pattern
+
+    # pylint: disable=too-few-public-methods
+    class Config:
+        arbitrary_types_allowed = True
+
+    # pylint: enable=too-few-public-methods
+
+
+print(inspect.signature(Pattern))
 
 
 class PatternList(UserList):
