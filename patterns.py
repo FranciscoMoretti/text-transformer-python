@@ -10,7 +10,7 @@ class Pattern(BaseModel):
     name: str
     value: re.Pattern
 
-    def __init__(self, value: str, name: str, **data) -> None:
+    def __init__(self, value: str, name: str) -> None:
         super().__init__(value=re.compile(value), name=name)
 
     def get_regex(self):
