@@ -1,10 +1,12 @@
 from patterns import Pattern, PatternList
 
+PATTERNS = [
+    {"value": "foo_value", "name": "foo"},
+    {"value": "bar_value", "name": "bar"},
+]
+
 SEPARATOR_LIST_SAMPLE = PatternList(
-    [
-        Pattern(name="foo", value="foo_value"),
-        Pattern(name="bar", value="bar_value"),
-    ]
+    [Pattern(name=pattern["name"], value=pattern["value"]) for pattern in PATTERNS]
 )
 
 
