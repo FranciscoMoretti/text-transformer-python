@@ -1,11 +1,12 @@
 from pathlib import Path
 from typing import List, Optional, OrderedDict
+
 from matching import Matching
 from pattern_registry import PatternRegistry
 from text_line import TextLine
-from utils import all_items_have_one_item_in_them, pairwise
-
 from virtual_file import VirtualFile
+
+from utils import all_items_have_one_item_in_them, pairwise
 
 
 class VirtualFileProcessor:
@@ -26,15 +27,19 @@ class VirtualFileProcessor:
     def split_files_with_separators(
         self, separators: PatternRegistry
     ) -> List[VirtualFile]:
-        lines_of_separators = self.get_matched_lines_by_patterns(patterns=separators)
+        lines_of_separators = self.get_matched_lines_by_patterns(
+            patterns=separators
+        )
 
-        # TODO: refactor in order to avoid this hack of adding a fake line
+        # TODO: refactor in order to avoid adding a fake line
         lines_of_separators["end"] = [
             TextLine(text="", line_number=len(self.virtual_file.lines) + 1)
         ]
 
-        # TODO: this shouldn't be necessary if we use the right types
-        assert all_items_have_one_item_in_them(list(lines_of_separators.values()))
+        # TODO: this shouldn't be necessary with the right types
+        assert all_items_have_one_item_in_them(
+            list(lines_of_separators.values())
+        )
 
         separated_files = []
         for (current_key, current_lines), (_, next_lines) in pairwise(
@@ -45,7 +50,9 @@ class VirtualFileProcessor:
             end_line_number = next(iter(next_lines)).line_number
             virtual_file = VirtualFile(
                 path=Path(current_separator_name),
-                lines=self.get_raw_lines_in_range(start_line_number, end_line_number),
+                lines=self.get_raw_lines_in_range(
+                    start_line_number, end_line_number
+                ),
             )
             separated_files.append(virtual_file)
         return separated_files
@@ -53,17 +60,20 @@ class VirtualFileProcessor:
     def get_matched_lines_by_patterns(
         self, patterns: PatternRegistry
     ) -> OrderedDict[str, List[TextLine]]:
-        matchings = self.get_line_matchings_of_patterns(patterns)
+        matchings = self.search_matchings_of_patterns(patterns)
         lines_by_pattern: OrderedDict[str, List[TextLine]] = OrderedDict(
             {pattern_name: [] for pattern_name in patterns.get_pattern_names()}
         )
         for matching in matchings:
             lines_by_pattern[matching.pattern_name].append(
-                TextLine(text=matching.match.string, line_number=matching.line_number)
+                TextLine(
+                    text=matching.match.string,
+                    line_number=matching.line_number,
+                )
             )
         return lines_by_pattern
 
-    def get_line_matchings_of_patterns(
+    def search_matchings_of_patterns(
         self,
         patterns: PatternRegistry,
     ) -> List[Matching]:
