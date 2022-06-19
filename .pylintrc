@@ -4,5 +4,6 @@ disable=
     C0115, #(missing-class-docstring)
     C0116, #(missing-function-docstring)
     W0511, #(fixme)
+    R0903, #(too-few-public-methods)
 
 extension-pkg-whitelist=pydantic

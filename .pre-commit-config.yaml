@@ -42,12 +42,19 @@ repos:
           - --line-length=79
           - --src=test
           # Move library to src and add src
-  - repo: https://github.com/PyCQA/pylint
-    rev: v2.13.4
+  # From https://pylint.pycqa.org/en/latest/user_guide/installation/pre-commit-integration.html
+  - repo: local
     hooks:
       - id: pylint
+        name: pylint
+        entry: venv/bin/pylint
+        language: system
+        types: [python]
         args:
-          - --disable=unused-argument
+          [
+            "-rn", # Only display messages
+            "-sn", # Don't display the score
+          ]
   - repo: https://github.com/PyCQA/pydocstyle
     rev: 6.1.1
     hooks:

@@ -1,12 +1,11 @@
 from pathlib import Path
 from typing import List, Optional, OrderedDict
 
-from matching import Matching
-from pattern_registry import PatternRegistry
-from text_line import TextLine
-from virtual_file import VirtualFile
-
-from utils import all_items_have_one_item_in_them, pairwise
+from src.matching import Matching
+from src.pattern_registry import PatternRegistry
+from src.text_line import TextLine
+from src.utils import all_items_have_one_item_in_them, pairwise
+from src.virtual_file import VirtualFile
 
 
 class VirtualFileProcessor:

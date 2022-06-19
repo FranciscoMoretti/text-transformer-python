@@ -1,5 +1,6 @@
 import re
-from named_patterns import NamedPattern, NamedPatternList
+
+from src.named_patterns import NamedPattern, NamedPatternList
 
 PATTERNS = [
     {"value": "foo_value", "name": "foo"},
@@ -7,7 +8,10 @@ PATTERNS = [
 ]
 
 PATTERN_LIST_SAMPLE = NamedPatternList(
-    [NamedPattern(name=pattern["name"], value=pattern["value"]) for pattern in PATTERNS]
+    [
+        NamedPattern(name=pattern["name"], value=pattern["value"])
+        for pattern in PATTERNS
+    ]
 )
 
 

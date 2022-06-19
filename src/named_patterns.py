@@ -1,5 +1,5 @@
-from collections import UserList
 import re
+from collections import UserList
 from typing import List
 
 from pydantic import BaseModel
