@@ -101,8 +101,13 @@ class VirtualFileProcessor:
         self, pattern: NamedPattern, replacement: str
     ) -> None:
         for text_line in self.virtual_file.get_text_lines():
+            original_text = text_line.text
             line_processor = TextLineProcessor(text_line)
             line_processor.substitute_pattern_with_replacement(
                 pattern=pattern, replacement=replacement
             )
-            text_line = line_processor.text_line
+            new_line_text = line_processor.text_line.text
+            if original_text != new_line_text:
+                self.virtual_file.lines[
+                    text_line.line_number
+                ] = line_processor.text_line.text

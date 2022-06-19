@@ -82,3 +82,13 @@ def test_search_matchings_of_pattern():
     matchings = file_processor.search_matchings_of_pattern(pattern=pattern)
     assert len(matchings) == 1
     assert matchings[0].pattern_name == "bar"
+
+
+def test_substitute_pattern_with_replacement():
+    file_processor = VirtualFileProcessor(VIRTUAL_FILE)
+    pattern = NamedPattern(name="bar", value="Line 3")
+
+    file_processor.substitute_pattern_with_replacement(
+        pattern=pattern, replacement="Line new"
+    )
+    assert file_processor.virtual_file.lines[2] == "Line new\n"
