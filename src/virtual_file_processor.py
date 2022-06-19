@@ -2,6 +2,7 @@ from pathlib import Path
 from typing import List, Optional, OrderedDict
 
 from src.matching import Matching
+from src.named_patterns import NamedPattern
 from src.pattern_registry import PatternRegistry
 from src.text_line import TextLine
 from src.text_line_processor import TextLineProcessor
@@ -84,3 +85,24 @@ class VirtualFileProcessor:
                 line_processor.search_matchings_of_patterns(patterns)
             )
         return line_matchings
+
+    def search_matchings_of_pattern(
+        self,
+        pattern: NamedPattern,
+    ) -> List[Matching]:
+        line_matchings: List[Matching] = []
+        for text_line in self.virtual_file.get_text_lines():
+            line_processor = TextLineProcessor(text_line)
+            if matching := line_processor.search_matching_of_pattern(pattern):
+                line_matchings.append(matching)
+        return line_matchings
+
+    def substitute_pattern_with_replacement(
+        self, pattern: NamedPattern, replacement: str
+    ) -> None:
+        for text_line in self.virtual_file.get_text_lines():
+            line_processor = TextLineProcessor(text_line)
+            line_processor.substitute_pattern_with_replacement(
+                pattern=pattern, replacement=replacement
+            )
+            text_line = line_processor.text_line

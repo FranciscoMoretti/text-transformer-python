@@ -73,3 +73,12 @@ def test_split_files_by_separators():
     assert all(isinstance(file, VirtualFile) for file in output_files)
     assert output_files[1].path == Path("bar")
     assert output_files[1].lines == MULTILINE_CONTENT[2:5]
+
+
+def test_search_matchings_of_pattern():
+    file_processor = VirtualFileProcessor(VIRTUAL_FILE)
+    pattern = NamedPattern(name="bar", value="Line 3")
+
+    matchings = file_processor.search_matchings_of_pattern(pattern=pattern)
+    assert len(matchings) == 1
+    assert matchings[0].pattern_name == "bar"
