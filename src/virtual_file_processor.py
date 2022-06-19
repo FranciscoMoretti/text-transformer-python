@@ -108,6 +108,4 @@ class VirtualFileProcessor:
             )
             new_line_text = line_processor.text_line.text
             if original_text != new_line_text:
-                self.virtual_file.lines[
-                    text_line.line_number
-                ] = line_processor.text_line.text
+                self.virtual_file.set_text_line(text_line)
