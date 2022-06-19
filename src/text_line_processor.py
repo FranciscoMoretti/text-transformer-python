@@ -15,14 +15,8 @@ class TextLineProcessor:
     ) -> List[Matching]:
         line_matchings: List[Matching] = []
         for pattern in pattern_registry.patterns:
-            if match := pattern.regex.search(self.text_line.text):
-                line_matchings.append(
-                    Matching(
-                        pattern_name=pattern.name,
-                        line_number=self.text_line.line_number,
-                        match=match,
-                    )
-                )
+            if matching := self.search_matching_of_pattern(pattern):
+                line_matchings.append(matching)
         return line_matchings
 
     def search_matching_of_pattern(
