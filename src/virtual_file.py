@@ -16,6 +16,10 @@ class VirtualFile:
             for number, text in enumerate(self.lines)
         ]
 
+    def set_text_line(self, text_line: TextLine) -> None:
+        if text_line.line_number < len(self.lines):
+            self.lines[text_line.line_number] = text_line.text
+
 
 class VirtualFileIO:
     @staticmethod
