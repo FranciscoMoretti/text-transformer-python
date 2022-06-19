@@ -41,6 +41,7 @@ repos:
         args:
           - --line-length=79
           - --src=test
+          - --src=src
           # Move library to src and add src
   # From https://pylint.pycqa.org/en/latest/user_guide/installation/pre-commit-integration.html
   - repo: local
