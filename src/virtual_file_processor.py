@@ -4,6 +4,7 @@ from typing import List, Optional, OrderedDict
 from src.matching import Matching
 from src.pattern_registry import PatternRegistry
 from src.text_line import TextLine
+from src.text_line_processor import TextLineProcessor
 from src.utils import all_items_have_one_item_in_them, pairwise
 from src.virtual_file import VirtualFile
 
@@ -78,7 +79,8 @@ class VirtualFileProcessor:
     ) -> List[Matching]:
         line_matchings: List[Matching] = []
         for text_line in self.virtual_file.get_text_lines():
+            line_processor = TextLineProcessor(text_line)
             line_matchings.extend(
-                patterns.search_matchings_in_text_line(text_line=text_line)
+                line_processor.search_matchings_of_patterns(patterns)
             )
         return line_matchings
