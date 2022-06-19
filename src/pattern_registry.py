@@ -1,15 +1,17 @@
 from typing import List
 
-from matching import Matching
-from named_patterns import NamedPatternList
-from text_line import TextLine
+from src.matching import Matching
+from src.named_patterns import NamedPatternList
+from src.text_line import TextLine
 
 
 class PatternRegistry:
     def __init__(self, patterns: NamedPatternList) -> None:
         self.patterns = patterns
 
-    def search_matchings_in_text_line(self, text_line: TextLine) -> List[Matching]:
+    def search_matchings_in_text_line(
+        self, text_line: TextLine
+    ) -> List[Matching]:
         line_matchings: List[Matching] = []
         for pattern in self.patterns:
             if match := pattern.regex.search(text_line.text):
