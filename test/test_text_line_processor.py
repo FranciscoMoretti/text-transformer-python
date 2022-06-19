@@ -30,6 +30,19 @@ def test_search_matching_of_pattern():
     )
 
 
+def test_substitute_pattern_with_replacement():
+    bar_pattern = PATTERN_LIST_SAMPLE[1]
+    text_line = TextLine(text=SAMPLE_TEXT_LINE_BAR, line_number=100)
+    text_line_processor = TextLineProcessor(text_line)
+    text_line_processor.substitute_pattern_with_replacement(
+        bar_pattern, "new_value"
+    )
+    assert text_line_processor.text_line == TextLine(
+        text=SAMPLE_TEXT_LINE_BAR.replace("bar_value", "new_value"),
+        line_number=text_line.line_number,
+    )
+
+
 def test_search_matchings_of_patterns():
     pattern_registry = PatternRegistry(patterns=PATTERN_LIST_SAMPLE)
     text_line = TextLine(text=SAMPLE_TEXT_LINE_BAR, line_number=100)

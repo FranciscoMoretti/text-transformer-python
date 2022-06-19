@@ -29,3 +29,10 @@ class TextLineProcessor:
                 match=match,
             )
         return None
+
+    def substitute_pattern_with_replacement(
+        self, pattern: NamedPattern, replacement: str
+    ) -> None:
+        self.text_line.text = pattern.regex.sub(
+            repl=replacement, string=self.text_line.text
+        )
