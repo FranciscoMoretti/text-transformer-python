@@ -1,5 +1,6 @@
 from pathlib import Path
 
+from src.named_patterns import NamedPattern
 from src.pattern_registry import PatternRegistry
 from src.patterns_reader import PatternsReader
 from src.utils import all_items_have_one_item_in_them
@@ -33,6 +34,21 @@ for file in separated_files:
     file.path = Path.joinpath(OUTPUT_DIRECTORY_PATH, file.path).with_suffix(
         ".md"
     )
+
+filenames = [file.path.name for file in separated_files]
+
+files_of_filenames = {file.path.name: file for file in separated_files}
+
+name_tag_pattern = NamedPattern(
+    name="name_tag", value=r'.*name="(?P<bar>[A-Za-z0-9-]*)".*'
+)
+
+matches_of_filenames = {
+    file.path.name: VirtualFileProcessor(file).search_matchings_of_pattern(
+        name_tag_pattern
+    )
+    for file in separated_files
+}
 
 for file in separated_files:
     VirtualFileIO.save_to_real_file(virtual_file=file)
