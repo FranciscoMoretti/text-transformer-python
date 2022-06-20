@@ -89,11 +89,14 @@ def test_search_matchings_of_regex_pattern():
     file_with_regex = deepcopy(VIRTUAL_FILE)
     file_with_regex.lines.insert(3, '## <a name="SS-aims"></a>In.aims: Aims')
     file_processor = VirtualFileProcessor(file_with_regex)
-    pattern = NamedPattern(name="foo", value=r'.*name="[A-Za-z0-9-]*".*')
+    pattern = NamedPattern(
+        name="foo", value=r'.*name="(?P<bar>[A-Za-z0-9-]*)".*'
+    )
 
     matchings = file_processor.search_matchings_of_pattern(pattern=pattern)
     assert len(matchings) == 1
     assert matchings[0].pattern_name == "foo"
+    assert matchings[0].match.groupdict()["bar"] == "SS-aims"
 
 
 def test_substitute_pattern_with_replacement():
