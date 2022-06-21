@@ -1,9 +1,12 @@
-from typing import List, Optional
+import re
+from typing import Callable, List, Optional, Union
 
 from src.matching import Matching
 from src.named_patterns import NamedPattern
 from src.pattern_registry import PatternRegistry
 from src.text_line import TextLine
+
+RegexReplacement = Union[str, Callable[[re.Match], str]]
 
 
 class TextLineProcessor:
@@ -31,7 +34,9 @@ class TextLineProcessor:
         return None
 
     def substitute_pattern_with_replacement(
-        self, pattern: NamedPattern, replacement: str
+        self,
+        pattern: NamedPattern,
+        replacement: RegexReplacement,
     ) -> None:
         self.text_line.text = pattern.regex.sub(
             repl=replacement, string=self.text_line.text
