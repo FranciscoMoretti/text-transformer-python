@@ -1,3 +1,4 @@
+import re
 import sys
 from pathlib import Path
 from typing import List, Optional
@@ -32,11 +33,6 @@ assert all_items_have_one_item_in_them(
 separated_files = file_processor.split_files_with_separators(
     separators=separator_registry
 )
-
-for file in separated_files:
-    file.path = Path.joinpath(OUTPUT_DIRECTORY_PATH, file.path).with_suffix(
-        ".md"
-    )
 
 filenames = [file.path.stem for file in separated_files]
 
@@ -99,5 +95,31 @@ absolute_tag_of_relative_tag = {
     for tag, filename in filenames_of_tags.items()
 }
 
-for file in separated_files:
+
+def replace_relative_tag_by_absolute_tag_in_match(
+    match_object: re.Match,
+) -> str:
+    relative_name = match_object.groupdict()["relative"]
+    absolute_name = absolute_tag_of_relative_tag[relative_name.lstrip("#")]
+    return match_object.string.replace(relative_name, absolute_name)
+
+
+for relative_tag, absolute_tag in absolute_tag_of_relative_tag.items():
+    pattern = NamedPattern(
+        name="name_tag", value=rf".*\[.*\]\((?P<relative>#{relative_tag})\).*"
+    )
+    file_processor.substitute_pattern_with_replacement(
+        pattern=pattern,
+        replacement=replace_relative_tag_by_absolute_tag_in_match,
+    )
+
+separated_files_with_absolute_references = (
+    file_processor.split_files_with_separators(separators=separator_registry)
+)
+
+for file in separated_files_with_absolute_references:
+    file.path = Path.joinpath(OUTPUT_DIRECTORY_PATH, file.path).with_suffix(
+        ".md"
+    )
+for file in separated_files_with_absolute_references:
     VirtualFileIO.save_to_real_file(virtual_file=file)
