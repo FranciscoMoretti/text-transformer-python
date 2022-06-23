@@ -26,9 +26,12 @@ lines_of_separators = file_processor.get_matched_lines_by_patterns(
     separator_registry
 )
 
-assert all_items_have_one_item_in_them(
+if not all_items_have_one_item_in_them(
     list_of_lists=list(lines_of_separators.values())
-)
+):
+    print("All separators don't have one match in them")
+    print(lines_of_separators)
+    sys.exit()
 
 separated_files = file_processor.split_files_with_separators(
     separators=separator_registry
