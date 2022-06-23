@@ -122,7 +122,7 @@ separated_files_with_absolute_references = (
 
 for file in separated_files_with_absolute_references:
     file.path = Path.joinpath(OUTPUT_DIRECTORY_PATH, file.path).with_suffix(
-        ".md"
+        ".mdx"
     )
 for file in separated_files_with_absolute_references:
     VirtualFileIO.save_to_real_file(virtual_file=file)
