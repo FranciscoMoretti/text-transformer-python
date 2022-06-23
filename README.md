@@ -25,3 +25,9 @@ using this repl
 ```
 
 This illustrates the need of text processing files as a single string to be able to match a multiline regex. (TBD)
+
+Then delete the `md` comments found with
+
+```
+<!--.*-->
+```
