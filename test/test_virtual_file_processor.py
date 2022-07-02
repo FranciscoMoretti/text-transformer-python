@@ -1,7 +1,7 @@
 from copy import deepcopy
 from pathlib import Path
 
-from src.named_patterns import NamedPattern, NamedPatternList
+from src.named_patterns import SearchConfiguration, SearchConfigurationList
 from src.pattern_registry import PatternRegistry
 from src.text_line import TextLine
 from src.utils import all_items_have_one_item_in_them
@@ -38,10 +38,10 @@ def test_get_raw_lines_in_range():
 
 def test_get_matchings_of_patterns():
     file_processor = VirtualFileProcessor(VIRTUAL_FILE)
-    patterns = NamedPatternList(
+    patterns = SearchConfigurationList(
         [
-            NamedPattern(name="foo", value="Line 1"),
-            NamedPattern(name="bar", value="Line 3"),
+            SearchConfiguration(name="foo", regex_pattern="Line 1"),
+            SearchConfiguration(name="bar", regex_pattern="Line 3"),
         ]
     )
     pattern_registry = PatternRegistry(patterns)
@@ -59,11 +59,11 @@ def test_get_matchings_of_patterns():
 
 def test_split_files_by_separators():
     file_processor = VirtualFileProcessor(VIRTUAL_FILE)
-    separators = NamedPatternList(
+    separators = SearchConfigurationList(
         [
-            NamedPattern(name="foo", value="Line 1"),
-            NamedPattern(name="bar", value="Line 3"),
-            NamedPattern(name="baz", value="Line 6"),
+            SearchConfiguration(name="foo", regex_pattern="Line 1"),
+            SearchConfiguration(name="bar", regex_pattern="Line 3"),
+            SearchConfiguration(name="baz", regex_pattern="Line 6"),
         ]
     )
     pattern_registry = PatternRegistry(separators)
@@ -78,7 +78,7 @@ def test_split_files_by_separators():
 
 def test_search_matchings_of_pattern():
     file_processor = VirtualFileProcessor(VIRTUAL_FILE)
-    pattern = NamedPattern(name="bar", value="Line 3")
+    pattern = SearchConfiguration(name="bar", regex_pattern="Line 3")
 
     matchings = file_processor.search_matchings_of_pattern(pattern=pattern)
     assert len(matchings) == 1
@@ -89,8 +89,8 @@ def test_search_matchings_of_regex_pattern():
     file_with_regex = deepcopy(VIRTUAL_FILE)
     file_with_regex.lines.insert(3, '## <a name="SS-aims"></a>In.aims: Aims')
     file_processor = VirtualFileProcessor(file_with_regex)
-    pattern = NamedPattern(
-        name="foo", value=r'.*name="(?P<bar>[A-Za-z0-9-]*)".*'
+    pattern = SearchConfiguration(
+        name="foo", regex_pattern=r'.*name="(?P<bar>[A-Za-z0-9-]*)".*'
     )
 
     matchings = file_processor.search_matchings_of_pattern(pattern=pattern)
@@ -101,7 +101,7 @@ def test_search_matchings_of_regex_pattern():
 
 def test_substitute_pattern_with_replacement():
     file_processor = VirtualFileProcessor(VIRTUAL_FILE)
-    pattern = NamedPattern(name="bar", value="Line 3")
+    pattern = SearchConfiguration(name="bar", regex_pattern="Line 3")
 
     file_processor.substitute_pattern_with_replacement(
         pattern=pattern, replacement="Line new"

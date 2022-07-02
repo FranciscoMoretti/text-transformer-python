@@ -5,12 +5,12 @@ from typing import List
 from pydantic import BaseModel
 
 
-class NamedPattern(BaseModel):
+class SearchConfiguration(BaseModel):
     name: str
     regex: re.Pattern
 
-    def __init__(self, value: str, name: str) -> None:
-        super().__init__(regex=re.compile(value), name=name)
+    def __init__(self, regex_pattern: str, name: str) -> None:
+        super().__init__(regex=re.compile(regex_pattern), name=name)
 
     def get_regex(self):
         return self.regex
@@ -25,10 +25,10 @@ class NamedPattern(BaseModel):
     # pylint: enable=too-few-public-methods
 
 
-class NamedPatternList(UserList):
+class SearchConfigurationList(UserList):
     def __init__(self, initlist=None) -> None:
         super().__init__(initlist)
-        self.data: List[NamedPattern]
+        self.data: List[SearchConfiguration]
 
     def get_patterns(self) -> List[str]:
         return [pattern.get_pattern() for pattern in self.data]

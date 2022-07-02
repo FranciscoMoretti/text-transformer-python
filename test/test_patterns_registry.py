@@ -1,14 +1,16 @@
-from src.named_patterns import NamedPattern, NamedPatternList
+from src.named_patterns import SearchConfiguration, SearchConfigurationList
 from src.pattern_registry import PatternRegistry
 
 PATTERNS = [
-    {"value": "foo_value", "name": "foo"},
-    {"value": "bar_value", "name": "bar"},
+    {"regex_pattern": "foo_value", "name": "foo"},
+    {"regex_pattern": "bar_value", "name": "bar"},
 ]
 
-SEPARATOR_LIST_SAMPLE = NamedPatternList(
+SEPARATOR_LIST_SAMPLE = SearchConfigurationList(
     [
-        NamedPattern(name=pattern["name"], value=pattern["value"])
+        SearchConfiguration(
+            name=pattern["name"], regex_pattern=pattern["regex_pattern"]
+        )
         for pattern in PATTERNS
     ]
 )

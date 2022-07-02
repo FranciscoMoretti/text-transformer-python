@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import List, Optional
 
 from src.matching import Matching
-from src.named_patterns import NamedPattern
+from src.named_patterns import SearchConfiguration
 from src.pattern_registry import PatternRegistry
 from src.patterns_reader import PatternsReader
 from src.utils import all_items_have_one_item_in_them
@@ -41,8 +41,8 @@ filenames = [file.path.stem for file in separated_files]
 
 files_of_filenames = {file.path.name: file for file in separated_files}
 
-name_tag_pattern = NamedPattern(
-    name="name_tag", value=r'.*name="(?P<tag>[A-Za-z0-9-]*)".*'
+name_tag_pattern = SearchConfiguration(
+    name="name_tag", regex_pattern=r'.*name="(?P<tag>[A-Za-z0-9-]*)".*'
 )
 
 matchings_of_filenames = {
@@ -108,8 +108,9 @@ def replace_relative_tag_by_absolute_tag_in_match(
 
 
 for relative_tag, absolute_tag in absolute_tag_of_relative_tag.items():
-    pattern = NamedPattern(
-        name="name_tag", value=rf".*\[.*\]\((?P<relative>#{relative_tag})\).*"
+    pattern = SearchConfiguration(
+        name="name_tag",
+        regex_pattern=rf".*\[.*\]\((?P<relative>#{relative_tag})\).*",
     )
     file_processor.substitute_pattern_with_replacement(
         pattern=pattern,

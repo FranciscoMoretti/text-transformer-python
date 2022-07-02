@@ -1,20 +1,8 @@
-from src.named_patterns import NamedPattern, NamedPatternList
+from test.sample_resources import PATTERN_LIST_SAMPLE
+
 from src.pattern_registry import PatternRegistry
 from src.text_line import TextLine
 from src.text_line_processor import TextLineProcessor
-
-PATTERNS = [
-    {"value": "foo_value", "name": "foo"},
-    {"value": "bar_value", "name": "bar"},
-]
-
-PATTERN_LIST_SAMPLE = NamedPatternList(
-    [
-        NamedPattern(name=pattern["name"], value=pattern["value"])
-        for pattern in PATTERNS
-    ]
-)
-
 
 SAMPLE_TEXT_LINE_BAR = "this line has bar_value in it"
 

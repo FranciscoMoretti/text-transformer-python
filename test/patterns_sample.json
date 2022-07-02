@@ -1,6 +1,6 @@
 [
     {
         "name": "foo",
-        "value": "foo=\"bar\""
+        "regex_pattern": "foo=\"bar\""
     }
 ]

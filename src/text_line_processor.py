@@ -2,7 +2,7 @@ import re
 from typing import Callable, List, Optional, Union
 
 from src.matching import Matching
-from src.named_patterns import NamedPattern
+from src.named_patterns import SearchConfiguration
 from src.pattern_registry import PatternRegistry
 from src.text_line import TextLine
 
@@ -23,7 +23,7 @@ class TextLineProcessor:
         return line_matchings
 
     def search_matching_of_pattern(
-        self, pattern: NamedPattern
+        self, pattern: SearchConfiguration
     ) -> Optional[Matching]:
         if match := pattern.regex.search(self.text_line.text):
             return Matching(
@@ -35,7 +35,7 @@ class TextLineProcessor:
 
     def substitute_pattern_with_replacement(
         self,
-        pattern: NamedPattern,
+        pattern: SearchConfiguration,
         replacement: RegexReplacement,
     ) -> None:
         self.text_line.text = pattern.regex.sub(
