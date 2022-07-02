@@ -5,7 +5,7 @@ from src.matching import Matching
 from src.named_patterns import NamedPattern
 from src.pattern_registry import PatternRegistry
 from src.text_line import TextLine
-from src.text_line_processor import TextLineProcessor
+from src.text_line_processor import RegexReplacement, TextLineProcessor
 from src.utils import all_items_have_one_item_in_them, pairwise
 from src.virtual_file import VirtualFile
 
@@ -98,7 +98,7 @@ class VirtualFileProcessor:
         return line_matchings
 
     def substitute_pattern_with_replacement(
-        self, pattern: NamedPattern, replacement: str
+        self, pattern: NamedPattern, replacement: RegexReplacement
     ) -> None:
         for text_line in self.virtual_file.get_text_lines():
             original_text = text_line.text
