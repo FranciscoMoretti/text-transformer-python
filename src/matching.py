@@ -2,6 +2,8 @@ import re
 
 from pydantic import BaseModel
 
+SimpleMatching = re.Match
+
 
 # pylint: disable=too-few-public-methods
 class Matching(BaseModel):
