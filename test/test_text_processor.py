@@ -29,7 +29,7 @@ MULTILINE_CONTENT = (
 )
 def test_search_matchings_of_pattern(test_input, expected):
     file_processor = TextProcessor(MULTILINE_CONTENT)
-    matchings = file_processor.search_matchings_of_pattern(pattern=test_input)
+    matchings = file_processor.find_matchings_of_pattern(pattern=test_input)
     assert matchings == expected
 
 

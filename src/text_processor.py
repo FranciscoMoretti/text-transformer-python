@@ -9,7 +9,7 @@ class TextProcessor:
     def __init__(self, text: str) -> None:
         self._text = text
 
-    def search_matchings_of_pattern(
+    def find_matchings_of_pattern(
         self,
         pattern: SearchConfiguration,
     ) -> List[SimpleMatching]:
