@@ -12,8 +12,8 @@ MULTILINE_CONTENT = "Line 1\nLine 2\nLine 3\nLine 4\nLine 5\nLine 6\nLine 7\n"
     [
         pytest.param(
             SearchConfiguration(name="bar", regex_pattern="Line 3"),
-            [SimpleMatching(pattern_name="bar", start=14, end=16)],
-            marks=pytest.mark.xfail,
+            [SimpleMatching(pattern_name="bar", start=14, end=20)],
+            id="simple_pattern_found",
         )
     ],
 )
