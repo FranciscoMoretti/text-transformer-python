@@ -31,3 +31,24 @@ def test_search_matchings_of_pattern(test_input, expected):
     file_processor = TextProcessor(MULTILINE_CONTENT)
     matchings = file_processor.search_matchings_of_pattern(pattern=test_input)
     assert matchings == expected
+
+
+@pytest.mark.parametrize(
+    "search_configuration, replacement, expected",
+    [
+        pytest.param(
+            SearchConfiguration(name="bar", regex_pattern="Line 3"),
+            "Line new",
+            MULTILINE_CONTENT.replace("Line 3", "Line new"),
+            id="simple_replacement",
+        ),
+    ],
+)
+def test_substitute_pattern_with_replacement(
+    search_configuration, replacement, expected
+):
+    text_processor = TextProcessor(MULTILINE_CONTENT)
+    new_text = text_processor.substitute_pattern_with_replacement(
+        pattern=search_configuration, replacement=replacement
+    )
+    assert new_text == expected

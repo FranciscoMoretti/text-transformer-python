@@ -22,5 +22,5 @@ class TextProcessor:
 
     def substitute_pattern_with_replacement(
         self, pattern: SearchConfiguration, replacement: RegexReplacement
-    ) -> None:
-        self._text = pattern.regex.sub(repl=replacement, string=self._text)
+    ) -> str:
+        return pattern.regex.sub(repl=replacement, string=self._text)
