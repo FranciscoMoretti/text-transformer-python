@@ -2,7 +2,11 @@ import re
 
 from pydantic import BaseModel
 
-SimpleMatching = re.Match
+
+class SimpleMatching(BaseModel):
+    pattern_name: str
+    start: int
+    end: int
 
 
 # pylint: disable=too-few-public-methods
