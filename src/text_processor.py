@@ -24,3 +24,6 @@ class TextProcessor:
         self, pattern: SearchConfiguration, replacement: RegexReplacement
     ) -> str:
         return pattern.regex.sub(repl=replacement, string=self._text)
+
+    def split_with_pattern(self, pattern: SearchConfiguration) -> List[str]:
+        return pattern.regex.split(string=self._text)
