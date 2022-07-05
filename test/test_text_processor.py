@@ -79,7 +79,7 @@ def test_substitute_pattern_with_replacement(
         ),
     ],
 )
-def test_split_with_pattern(positions, expected):
+def test_split_at_positions(positions, expected):
     text_processor = TextProcessor(MULTILINE_CONTENT)
     new_text = text_processor.split_at_positions(positions)
     assert new_text == expected
