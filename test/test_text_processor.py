@@ -90,3 +90,34 @@ def test_get_line_iterator():
         list(text_processor.get_line_iterator())
         == MULTILINE_CONTENT.splitlines()
     )
+
+
+@pytest.mark.parametrize(
+    "start, end, expected",
+    [
+        pytest.param(
+            None,
+            2,
+            "\n".join(MULTILINE_CONTENT.splitlines()[:2]),
+            id="no_start_defined_starts_at_beggining",
+        ),
+        pytest.param(
+            2,
+            None,
+            "\n".join(MULTILINE_CONTENT.splitlines()[2:]),
+            id="no_end_defined_ends_at_end",
+        ),
+        pytest.param(
+            1,
+            3,
+            "\n".join(MULTILINE_CONTENT.splitlines()[1:3]),
+            id="start_and_end_defined_are_used_as_limits",
+        ),
+    ],
+)
+def test_get_text_in_line_range(start, end, expected):
+    text_processor = TextProcessor(MULTILINE_CONTENT)
+    assert (
+        text_processor.get_text_in_line_range(start=start, end=end) == expected
+    )
+    assert expected in MULTILINE_CONTENT

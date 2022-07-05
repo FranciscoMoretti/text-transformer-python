@@ -1,4 +1,4 @@
-from typing import Generator, List
+from typing import Generator, List, Optional
 
 from src.itertools_recipes import pairwise
 from src.line_iterator import line_iterator
@@ -39,3 +39,11 @@ class TextProcessor:
 
     def get_line_iterator(self) -> Generator[str, None, None]:
         return line_iterator(raw_string=self._text)
+
+    def get_text_in_line_range(
+        self, start: Optional[int] = None, end: Optional[int] = None
+    ) -> str:
+        lines = list(line_iterator(raw_string=self._text))
+        start = 0 if start is None else start
+        end = len(lines) if end is None else end
+        return "\n".join(lines[start:end])
