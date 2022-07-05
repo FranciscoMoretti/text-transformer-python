@@ -1,5 +1,6 @@
 from typing import List
 
+from src.itertools_recipes import pairwise
 from src.matching import SimpleMatching
 from src.named_patterns import SearchConfiguration
 from src.text_line_processor import RegexReplacement
@@ -27,3 +28,10 @@ class TextProcessor:
 
     def split_with_pattern(self, pattern: SearchConfiguration) -> List[str]:
         return pattern.regex.split(string=self._text)
+
+    def split_at_positions(self, positions: List[int]) -> List[str]:
+        positions_with_limits = [0] + positions + [len(self._text) + 1]
+        return [
+            self._text[start:end]
+            for start, end in pairwise(positions_with_limits)
+        ]

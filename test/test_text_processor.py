@@ -55,16 +55,31 @@ def test_substitute_pattern_with_replacement(
 
 
 @pytest.mark.parametrize(
-    "search_configuration, expected",
+    "positions, expected",
     [
         pytest.param(
-            SearchConfiguration(name="bar", regex_pattern=r"Line 3\n"),
-            MULTILINE_CONTENT.split("Line 3\n"),
-            id="split_by_one_line",
+            [],
+            [MULTILINE_CONTENT],
+            id="no_positions_equals_original",
+        ),
+        pytest.param(
+            [10],
+            [MULTILINE_CONTENT[:10], MULTILINE_CONTENT[10:]],
+            id="start_end_limits_are_used",
+        ),
+        pytest.param(
+            [10, 20, 30],
+            [
+                MULTILINE_CONTENT[:10],
+                MULTILINE_CONTENT[10:20],
+                MULTILINE_CONTENT[20:30],
+                MULTILINE_CONTENT[30:],
+            ],
+            id="multi_split_is_allowed",
         ),
     ],
 )
-def test_split_with_pattern(search_configuration, expected):
+def test_split_with_pattern(positions, expected):
     text_processor = TextProcessor(MULTILINE_CONTENT)
-    new_text = text_processor.split_with_pattern(pattern=search_configuration)
+    new_text = text_processor.split_at_positions(positions)
     assert new_text == expected
