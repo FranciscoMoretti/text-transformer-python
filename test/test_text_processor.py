@@ -81,11 +81,12 @@ def test_substitute_pattern_with_replacement(
 )
 def test_split_at_positions(positions, expected):
     text_processor = TextProcessor(MULTILINE_CONTENT)
-    new_text = text_processor.split_at_positions(positions)
-    assert new_text == expected
+    assert text_processor.split_at_positions(positions) == expected
 
 
 def test_get_line_iterator():
     text_processor = TextProcessor(MULTILINE_CONTENT)
-    line_iterator = text_processor.get_line_iterator()
-    assert list(line_iterator) == MULTILINE_CONTENT.splitlines()
+    assert (
+        list(text_processor.get_line_iterator())
+        == MULTILINE_CONTENT.splitlines()
+    )
