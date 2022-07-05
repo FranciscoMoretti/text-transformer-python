@@ -5,8 +5,17 @@
 - Pattern replacement uses repl syntax form regex.
 
 ## Modularize
-### Each operation should be configurable and flexible on its own.
-Operations:
+Each operation should be configurable and flexible on its own.
+### Text processor operations
+- Find Matchings
+- Replace matching in text
+    - Replace matching group
+    - With input
+- Line iterator
+- Split at positions
+
+
+### File processor operations
 - Split files with search matchings.
     - Start line of word.
     - Name the result with strategies:
@@ -14,13 +23,9 @@ Operations:
         - Match group
         - Line number
         - Search config number (from order) 5_1 (1st file of regex 5)
-- Replace matching in text
-    - Replace matching group
-    - With input
 - Replace matching in filename
 
-
-Input types:
+Maybe:
 - Get search matchings in file.
     - Get group of matchings in file.
 - Match in filename
