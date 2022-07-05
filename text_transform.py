@@ -7,8 +7,14 @@ from src.matching import Matching
 from src.named_patterns import SearchConfiguration
 from src.pattern_registry import PatternRegistry
 from src.patterns_reader import PatternsReader
+from src.text_processor import TextProcessor
 from src.virtual_file import VirtualFileIO
 from src.virtual_file_processor import VirtualFileProcessor
+
+
+def flatten(list_of_lists):
+    return [item for sublist in list_of_lists for item in sublist]
+
 
 INPUT_TEXT_FILE_PATH = Path(".sandbox/CppCoreGuidelines.md")
 INPUT_SEPARATORS_FILE_PATH = Path(".sandbox/separators.json")
@@ -24,6 +30,18 @@ file_processor = VirtualFileProcessor(input_file)
 
 separated_files = file_processor.split_files_with_separators(
     separators=separator_registry
+)
+
+# Experiment of testing the new api and draft for FileProcessor
+text_processor = TextProcessor(text="".join(input_file.lines))
+separators_matchings_lists = [
+    text_processor.find_matchings_of_pattern(separator)
+    for separator in file_starter_separators
+]
+separators_matchings = flatten(separators_matchings_lists)
+separators_matchings.sort(key=lambda x: x.start)
+separated_texts = text_processor.split_at_positions(
+    [matching.start for matching in separators_matchings]
 )
 
 filenames = [file.path.stem for file in separated_files]
