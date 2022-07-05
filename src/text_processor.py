@@ -1,6 +1,7 @@
-from typing import List
+from typing import Generator, List
 
 from src.itertools_recipes import pairwise
+from src.line_iterator import line_iterator
 from src.matching import SimpleMatching
 from src.named_patterns import SearchConfiguration
 from src.text_line_processor import RegexReplacement
@@ -35,3 +36,6 @@ class TextProcessor:
             self._text[start:end]
             for start, end in pairwise(positions_with_limits)
         ]
+
+    def get_line_iterator(self) -> Generator[str, None, None]:
+        return line_iterator(raw_string=self._text)
