@@ -5,8 +5,8 @@ from typing import List, Optional
 
 from src.file_processor import FileProcessor
 from src.matching import SimpleMatching
-from src.patterns_reader import PatternsReader
 from src.search_configuration import SearchConfiguration
+from src.search_configurations_reader import SearchConfigurationsReader
 from src.text_file import TextFile
 from src.text_file_io import TextFileIO
 from src.text_processor import TextProcessor
@@ -15,9 +15,9 @@ INPUT_TEXT_FILE_PATH = Path(".sandbox/CppCoreGuidelines.md")
 INPUT_SEPARATORS_FILE_PATH = Path(".sandbox/separators.json")
 OUTPUT_DIRECTORY_PATH = Path(".sandbox/output")
 
-file_separators: List[SearchConfiguration] = PatternsReader.from_json_file(
-    INPUT_SEPARATORS_FILE_PATH
-)
+file_separators: List[
+    SearchConfiguration
+] = SearchConfigurationsReader.from_json_file(INPUT_SEPARATORS_FILE_PATH)
 
 input_file = TextFileIO.read_from_path(INPUT_TEXT_FILE_PATH)
 input_file_processor = FileProcessor(input_file)
