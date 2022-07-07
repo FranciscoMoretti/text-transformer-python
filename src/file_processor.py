@@ -17,7 +17,7 @@ class FileProcessor:
     ) -> List[TextFile]:
         # TODO: Create naming strategies
         # TODO: Create split strategies (matching start, matching end)
-        # TODO: Simplify by using List[Matching] as argument
+        # TODO: Simplify by using List[SimpleMatching] as argument
         matchings = self.search_matchings_of_patterns(patterns=separators)
         matchings.sort(key=lambda matching: matching.start)
 
