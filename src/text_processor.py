@@ -4,7 +4,7 @@ from src.itertools_recipes import pairwise
 from src.line_iterator import line_iterator
 from src.matching import SimpleMatching
 from src.named_patterns import SearchConfiguration
-from src.text_line_processor import RegexReplacement
+from src.regex_types import RegexReplacement
 
 
 class TextProcessor:
