@@ -22,7 +22,7 @@ PATTERN_LIST_SAMPLE = [
 ]
 
 
-def test_from_dict():
+def test_from_list_of_dictionaries():
     assert (
         PATTERN_LIST_SAMPLE
         == SearchConfigurationsReader.from_list_of_dictionaries(
@@ -31,7 +31,7 @@ def test_from_dict():
     )
 
 
-def test_from_json(tmp_path):
+def test_from_json_file(tmp_path):
     filepath = _get_tmp_path_to_file(tmp_path)
     filepath.write_text(json.dumps(PATTERN_LIST_DICT_SAMPLE))
     assert PATTERN_LIST_SAMPLE == SearchConfigurationsReader.from_json_file(
