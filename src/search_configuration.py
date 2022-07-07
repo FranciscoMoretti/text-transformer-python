@@ -1,6 +1,4 @@
 import re
-from collections import UserList
-from typing import List
 
 from pydantic import BaseModel
 
@@ -23,15 +21,3 @@ class SearchConfiguration(BaseModel):
         arbitrary_types_allowed = True
 
     # pylint: enable=too-few-public-methods
-
-
-class SearchConfigurationList(UserList):
-    def __init__(self, initlist=None) -> None:
-        super().__init__(initlist)
-        self.data: List[SearchConfiguration]
-
-    def get_patterns(self) -> List[str]:
-        return [pattern.get_pattern() for pattern in self.data]
-
-    def get_regexps(self) -> List[re.Pattern]:
-        return [pattern.get_regex() for pattern in self.data]
