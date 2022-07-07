@@ -5,8 +5,8 @@ from typing import List, Optional
 
 from src.file_processor import FileProcessor
 from src.matching import SimpleMatching
-from src.named_patterns import SearchConfiguration
 from src.patterns_reader import PatternsReader
+from src.search_configuration import SearchConfiguration
 from src.text_file import TextFile
 from src.text_file_io import TextFileIO
 from src.text_processor import TextProcessor

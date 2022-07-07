@@ -1,5 +1,6 @@
-from src.named_patterns import SearchConfiguration, SearchConfigurationList
 from src.pattern_registry import PatternRegistry
+from src.search_configuration import (SearchConfiguration,
+                                      SearchConfigurationList)
 
 PATTERNS = [
     {"regex_pattern": "foo_value", "name": "foo"},

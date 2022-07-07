@@ -1,7 +1,7 @@
 import pytest
 
 from src.matching import SimpleMatching
-from src.named_patterns import SearchConfiguration
+from src.search_configuration import SearchConfiguration
 from src.text_processor import TextProcessor
 
 MULTILINE_CONTENT = (

@@ -2,8 +2,8 @@ import json
 from pathlib import Path
 from test.utils.tmp_path import _get_tmp_path_to_file
 
-from src.named_patterns import SearchConfiguration
 from src.patterns_reader import PatternsReader
+from src.search_configuration import SearchConfiguration
 
 PATTERN_LIST_DICT_SAMPLE = [
     {

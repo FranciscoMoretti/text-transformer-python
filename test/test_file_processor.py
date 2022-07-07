@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from src.file_processor import FileProcessor
-from src.named_patterns import SearchConfiguration
+from src.search_configuration import SearchConfiguration
 from src.text_file import TextFile
 from src.utils import all_items_have_one_item_in_them
 

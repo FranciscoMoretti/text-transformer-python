@@ -3,8 +3,8 @@ from typing import Generator, List, Optional
 from src.itertools_recipes import pairwise
 from src.line_iterator import line_iterator
 from src.matching import SimpleMatching
-from src.named_patterns import SearchConfiguration
 from src.regex_types import RegexReplacement
+from src.search_configuration import SearchConfiguration
 
 
 class TextProcessor:

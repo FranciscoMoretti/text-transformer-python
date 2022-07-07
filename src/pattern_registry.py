@@ -1,6 +1,6 @@
 from typing import List
 
-from src.named_patterns import SearchConfigurationList
+from src.search_configuration import SearchConfigurationList
 
 
 class PatternRegistry:
