@@ -15,14 +15,25 @@ MULTILINE_CONTENT = (
     [
         pytest.param(
             SearchConfiguration(name="bar", regex_pattern="Line 3"),
-            [SimpleMatching(pattern_name="bar", start=14, end=20)],
+            [
+                SimpleMatching(
+                    pattern_name="bar", text="Line 3", start=14, end=20
+                )
+            ],
             id="simple_pattern_found",
         ),
         pytest.param(
             SearchConfiguration(
                 name="bar", regex_pattern=r'.*name="(?P<bar>[A-Za-z0-9-]*)".*'
             ),
-            [SimpleMatching(pattern_name="bar", start=49, end=87)],
+            [
+                SimpleMatching(
+                    pattern_name="bar",
+                    text='## <a name="SS-aims"></a>In.aims: Aims',
+                    start=49,
+                    end=87,
+                )
+            ],
             id="regex_pattern_found",
         ),
     ],
@@ -76,6 +87,31 @@ def test_substitute_pattern_with_replacement(
                 MULTILINE_CONTENT[30:],
             ],
             id="multi_split_is_allowed",
+        ),
+        pytest.param(
+            [20, 10],
+            [
+                MULTILINE_CONTENT[:10],
+                MULTILINE_CONTENT[10:20],
+                MULTILINE_CONTENT[20:],
+            ],
+            id="positions_order_do_not_matter",
+        ),
+        pytest.param(
+            [0, 10],
+            [
+                MULTILINE_CONTENT[:10],
+                MULTILINE_CONTENT[10:],
+            ],
+            id="explicit_start_is_allowed",
+        ),
+        pytest.param(
+            [10, len(MULTILINE_CONTENT) + 1],
+            [
+                MULTILINE_CONTENT[:10],
+                MULTILINE_CONTENT[10:],
+            ],
+            id="explicit_end_is_allowed",
         ),
     ],
 )

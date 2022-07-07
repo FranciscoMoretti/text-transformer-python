@@ -17,7 +17,10 @@ class TextProcessor:
     ) -> List[SimpleMatching]:
         return [
             SimpleMatching(
-                pattern_name=pattern.name, start=match.start(), end=match.end()
+                text=self._text[match.start() : match.end()],
+                pattern_name=pattern.name,
+                start=match.start(),
+                end=match.end(),
             )
             for match in pattern.regex.finditer(self._text)
         ]
@@ -31,7 +34,15 @@ class TextProcessor:
         return pattern.regex.split(string=self._text)
 
     def split_at_positions(self, positions: List[int]) -> List[str]:
-        positions_with_limits = [0] + positions + [len(self._text) + 1]
+        sorted_positions = sorted(positions)
+        start_limit = [0] if next(iter(sorted_positions), None) != 0 else []
+        last_postion = len(self._text) + 1
+        end_limit = (
+            [last_postion]
+            if next(reversed(sorted_positions), None) != last_postion
+            else []
+        )
+        positions_with_limits = start_limit + sorted_positions + end_limit
         return [
             self._text[start:end]
             for start, end in pairwise(positions_with_limits)
