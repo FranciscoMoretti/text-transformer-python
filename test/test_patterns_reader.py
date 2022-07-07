@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from test.utils.tmp_path import _get_tmp_path_to_file
 
-from src.named_patterns import SearchConfiguration, SearchConfigurationList
+from src.named_patterns import SearchConfiguration
 from src.patterns_reader import PatternsReader
 
 PATTERN_LIST_DICT_SAMPLE = [
@@ -16,12 +16,10 @@ PATTERN_LIST_DICT_SAMPLE = [
     },
 ]
 
-PATTERN_LIST_SAMPLE = SearchConfigurationList(
-    [
-        SearchConfiguration(name="foo", regex_pattern="foo_value"),
-        SearchConfiguration(name="bar", regex_pattern="bar_value"),
-    ]
-)
+PATTERN_LIST_SAMPLE = [
+    SearchConfiguration(name="foo", regex_pattern="foo_value"),
+    SearchConfiguration(name="bar", regex_pattern="bar_value"),
+]
 
 
 def test_from_dict():
@@ -40,9 +38,9 @@ PATH_TO_PATTERNS_SAMPLE_FILE = Path("./test/patterns_sample.json")
 
 
 def test_read_from_file():
-    expected_list = SearchConfigurationList(
-        [SearchConfiguration(name="foo", regex_pattern='foo="bar"')]
-    )
+    expected_list = [
+        SearchConfiguration(name="foo", regex_pattern='foo="bar"')
+    ]
     assert expected_list == PatternsReader.from_json_file(
         PATH_TO_PATTERNS_SAMPLE_FILE
     )
