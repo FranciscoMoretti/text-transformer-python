@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+from test.sample_resources import PATTERN_LIST_SAMPLE
 from test.utils.tmp_path import _get_tmp_path_to_file
 
 from src.search_configuration import SearchConfiguration
@@ -14,11 +15,6 @@ PATTERN_LIST_DICT_SAMPLE = [
         "name": "bar",
         "regex_pattern": "bar_value",
     },
-]
-
-PATTERN_LIST_SAMPLE = [
-    SearchConfiguration(name="foo", regex_pattern="foo_value"),
-    SearchConfiguration(name="bar", regex_pattern="bar_value"),
 ]
 
 
