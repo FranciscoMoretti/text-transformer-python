@@ -8,7 +8,9 @@ class SearchConfiguration(BaseModel):
     regex: re.Pattern
 
     def __init__(self, regex_pattern: str, name: str) -> None:
-        super().__init__(regex=re.compile(regex_pattern), name=name)
+        super().__init__(
+            regex=re.compile(regex_pattern, re.MULTILINE), name=name
+        )
 
     def get_regex(self):
         return self.regex
