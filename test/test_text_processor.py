@@ -33,6 +33,36 @@ from src.text_processor import TextProcessor
             ],
             id="regex_pattern_found",
         ),
+        pytest.param(
+            SearchConfiguration(name="bar", regex_pattern=r".*Line 3.*"),
+            [
+                SimpleMatching(
+                    pattern_name="bar",
+                    text="Line 3",
+                    start=14,
+                    end=20,
+                )
+            ],
+            id="regex_one_line_pattern",
+        ),
+        pytest.param(
+            SearchConfiguration(name="bar", regex_pattern=r".*Line [35].*"),
+            [
+                SimpleMatching(
+                    pattern_name="bar",
+                    text="Line 3",
+                    start=14,
+                    end=20,
+                ),
+                SimpleMatching(
+                    pattern_name="bar",
+                    text="Line 5",
+                    start=28,
+                    end=34,
+                ),
+            ],
+            id="regex_one_line_pattern",
+        ),
     ],
 )
 def test_search_matchings_of_pattern(test_input, expected):
