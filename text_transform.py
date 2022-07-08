@@ -3,50 +3,39 @@ import sys
 from pathlib import Path
 from typing import List, Optional
 
-from src.matching import Matching
-from src.named_patterns import NamedPattern
-from src.pattern_registry import PatternRegistry
-from src.patterns_reader import PatternsReader
-from src.utils import all_items_have_one_item_in_them
-from src.virtual_file import VirtualFileIO
-from src.virtual_file_processor import VirtualFileProcessor
+from src.file_processor import FileProcessor
+from src.matching import SimpleMatching
+from src.search_configuration import SearchConfiguration
+from src.search_configurations_reader import SearchConfigurationsReader
+from src.text_file import TextFile
+from src.text_file_io import TextFileIO
+from src.text_processor import TextProcessor
 
 INPUT_TEXT_FILE_PATH = Path(".sandbox/CppCoreGuidelines.md")
 INPUT_SEPARATORS_FILE_PATH = Path(".sandbox/separators.json")
 OUTPUT_DIRECTORY_PATH = Path(".sandbox/output")
 
-file_starter_separators = PatternsReader.from_json_file(
-    INPUT_SEPARATORS_FILE_PATH
+file_separators: List[
+    SearchConfiguration
+] = SearchConfigurationsReader.from_json_file(INPUT_SEPARATORS_FILE_PATH)
+
+input_file = TextFileIO.read_from_path(INPUT_TEXT_FILE_PATH)
+input_file_processor = FileProcessor(input_file)
+
+separated_files: List[
+    TextFile
+] = input_file_processor.split_files_with_separators_starting_and_name(
+    separators=file_separators
 )
-separator_registry = PatternRegistry(patterns=file_starter_separators)
-
-input_file = VirtualFileIO.read_from_path(INPUT_TEXT_FILE_PATH)
-file_processor = VirtualFileProcessor(input_file)
-lines_of_separators = file_processor.get_matched_lines_by_patterns(
-    separator_registry
-)
-
-if not all_items_have_one_item_in_them(
-    list_of_lists=list(lines_of_separators.values())
-):
-    print("All separators don't have one match in them")
-    print(lines_of_separators)
-    sys.exit()
-
-separated_files = file_processor.split_files_with_separators(
-    separators=separator_registry
-)
-
-filenames = [file.path.stem for file in separated_files]
 
 files_of_filenames = {file.path.name: file for file in separated_files}
 
-name_tag_pattern = NamedPattern(
-    name="name_tag", value=r'.*name="(?P<tag>[A-Za-z0-9-]*)".*'
+name_tag_pattern = SearchConfiguration(
+    name="name_tag", regex_pattern=r'.*name="(?P<tag>[A-Za-z0-9-]*)".*'
 )
 
-matchings_of_filenames = {
-    file.path.stem: VirtualFileProcessor(file).search_matchings_of_pattern(
+tag_matchings_of_filenames = {
+    file.path.stem: FileProcessor(file).search_matchings_of_pattern(
         name_tag_pattern
     )
     for file in separated_files
@@ -54,7 +43,7 @@ matchings_of_filenames = {
 
 
 def matching_list_to_value_of_match_group_list(
-    matching_list: List[Matching], match_group_name: str
+    matching_list: List[SimpleMatching], match_group_name: str
 ) -> List[Optional[str]]:
     return [
         matching_to_group_name_value(matching, match_group_name)
@@ -63,23 +52,25 @@ def matching_list_to_value_of_match_group_list(
 
 
 def matching_to_group_name_value(
-    matching: Matching, match_group_name: str
+    matching: SimpleMatching, match_group_name: str
 ) -> Optional[str]:
-    return matching.match.groupdict().get(match_group_name)
+    if match := name_tag_pattern.regex.match(matching.text):
+        return match.groupdict().get(match_group_name)
+    return None
 
 
 name_tags_of_filenames = {
     filename: matching_list_to_value_of_match_group_list(
         matching_list=matchings, match_group_name="tag"
     )
-    for filename, matchings in matchings_of_filenames.items()
+    for filename, matchings in tag_matchings_of_filenames.items()
 }
 
-tag_names_and_filenames = list(map(reversed, name_tags_of_filenames.items()))
+name_tags_and_filenames = list(map(reversed, name_tags_of_filenames.items()))
 
 filenames_of_tags = {}
 tag_set = set()
-for (tag_names, filename) in tag_names_and_filenames:
+for (tag_names, filename) in name_tags_and_filenames:
     for tag_name in tag_names:
         filenames_of_tags[tag_name] = filename
         if tag_name not in tag_set:
@@ -107,17 +98,24 @@ def replace_relative_tag_by_absolute_tag_in_match(
     return match_object.string.replace(relative_name, absolute_name)
 
 
+input_file_text_processor = TextProcessor(input_file.text)
+
 for relative_tag, absolute_tag in absolute_tag_of_relative_tag.items():
-    pattern = NamedPattern(
-        name="name_tag", value=rf".*\[.*\]\((?P<relative>#{relative_tag})\).*"
+    pattern = SearchConfiguration(
+        name="name_tag",
+        regex_pattern=rf".*\[.*\]\((?P<relative>#{relative_tag})\).*",
     )
-    file_processor.substitute_pattern_with_replacement(
-        pattern=pattern,
-        replacement=replace_relative_tag_by_absolute_tag_in_match,
+    input_file_text_processor = TextProcessor(
+        input_file_text_processor.substitute_pattern_with_replacement(
+            pattern=pattern,
+            replacement=replace_relative_tag_by_absolute_tag_in_match,
+        )
     )
 
 separated_files_with_absolute_references = (
-    file_processor.split_files_with_separators(separators=separator_registry)
+    input_file_processor.split_files_with_separators_starting_and_name(
+        file_separators
+    )
 )
 
 for file in separated_files_with_absolute_references:
@@ -125,4 +123,4 @@ for file in separated_files_with_absolute_references:
         ".mdx"
     )
 for file in separated_files_with_absolute_references:
-    VirtualFileIO.save_to_real_file(virtual_file=file)
+    TextFileIO.save_to_real_file(file)
