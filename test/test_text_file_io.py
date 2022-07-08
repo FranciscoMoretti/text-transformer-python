@@ -1,10 +1,10 @@
+from test.sample_resources import MULTILINE_CONTENT
 from test.utils.tmp_path import _get_tmp_path_to_file
 
 from src.text_file import TextFile
 from src.text_file_io import TextFileIO
 
 CONTENT = "content"
-MULTILINE_CONTENT = "Line 1\nLine 2\nLine 3\n"
 
 
 def test_read_file(tmp_path):

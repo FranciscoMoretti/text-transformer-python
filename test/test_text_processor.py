@@ -1,13 +1,10 @@
+from test.sample_resources import MULTILINE_CONTENT
+
 import pytest
 
 from src.matching import SimpleMatching
 from src.search_configuration import SearchConfiguration
 from src.text_processor import TextProcessor
-
-MULTILINE_CONTENT = (
-    "Line 1\nLine 2\nLine 3\nLine 4\nLine 5\nLine 6\nLine 7"
-    '\n## <a name="SS-aims"></a>In.aims: Aims'
-)
 
 
 @pytest.mark.parametrize(
