@@ -28,8 +28,6 @@ separated_files: List[
     separators=file_separators
 )
 
-files_of_filenames = {file.path.name: file for file in separated_files}
-
 name_tag_pattern = SearchConfiguration(
     name="name_tag", regex_pattern=r'.*name="(?P<tag>[A-Za-z0-9-]*)".*'
 )
