@@ -8,8 +8,7 @@ from src.text_processor import TextProcessor
 REPLACEMENTS: List[ReplaceConfiguration] = [
     ReplaceConfiguration(
         search_configuration=SearchConfiguration(
-            regex_pattern=r"![Normal parameter passing table]"
-            r'(./param-passing-normal.png "Normal parameter passing")',
+            regex_pattern=r"!\[Normal parameter passing table\].*",
             name="image_1",
         ),
         replacement="![Normal parameter passing table]"
@@ -17,12 +16,26 @@ REPLACEMENTS: List[ReplaceConfiguration] = [
     ),
     ReplaceConfiguration(
         search_configuration=SearchConfiguration(
-            regex_pattern=r"![Advanced parameter passing table]"
-            r'(./param-passing-advanced.png "Advanced parameter passing")',
-            name="image_1",
+            regex_pattern=r"!\[Advanced parameter passing table\].*",
+            name="image_2",
         ),
         replacement="![Advanced parameter passing table]"
         '(../public/param-passing-advanced.png "Advanced parameter passing")',
+    ),
+    ReplaceConfiguration(
+        search_configuration=SearchConfiguration(
+            regex_pattern=r"<!--.*-->.*",
+            name="markdown_comment_1",
+        ),
+        replacement="",
+    ),
+    ReplaceConfiguration(
+        search_configuration=SearchConfiguration(
+            regex_pattern=r"<< \?\?\? We need another level of rule numbering"
+            r" \?\?\? >>.*",
+            name="markdown_comment_2",
+        ),
+        replacement="",
     ),
 ]
 
