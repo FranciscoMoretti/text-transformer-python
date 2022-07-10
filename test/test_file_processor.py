@@ -1,14 +1,10 @@
 from pathlib import Path
+from test.sample_resources import MULTILINE_CONTENT
 
 from src.file_processor import FileProcessor
 from src.search_configuration import SearchConfiguration
 from src.text_file import TextFile
 from src.utils import all_items_have_one_item_in_them
-
-MULTILINE_CONTENT = (
-    "Line 1\nLine 2\nLine 3\nLine 4\nLine 5\nLine 6\nLine 7"
-    '\n## <a name="SS-aims"></a>In.aims: Aims'
-)
 
 TEXT_FILE = TextFile(text=MULTILINE_CONTENT, path=Path())
 

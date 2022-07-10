@@ -1,13 +1,10 @@
+from test.sample_resources import MULTILINE_CONTENT
+
 import pytest
 
 from src.matching import SimpleMatching
 from src.search_configuration import SearchConfiguration
 from src.text_processor import TextProcessor
-
-MULTILINE_CONTENT = (
-    "Line 1\nLine 2\nLine 3\nLine 4\nLine 5\nLine 6\nLine 7"
-    '\n## <a name="SS-aims"></a>In.aims: Aims'
-)
 
 
 @pytest.mark.parametrize(
@@ -35,6 +32,36 @@ MULTILINE_CONTENT = (
                 )
             ],
             id="regex_pattern_found",
+        ),
+        pytest.param(
+            SearchConfiguration(name="bar", regex_pattern=r".*Line 3.*"),
+            [
+                SimpleMatching(
+                    pattern_name="bar",
+                    text="Line 3",
+                    start=14,
+                    end=20,
+                )
+            ],
+            id="regex_one_line_pattern",
+        ),
+        pytest.param(
+            SearchConfiguration(name="bar", regex_pattern=r".*Line [35].*"),
+            [
+                SimpleMatching(
+                    pattern_name="bar",
+                    text="Line 3",
+                    start=14,
+                    end=20,
+                ),
+                SimpleMatching(
+                    pattern_name="bar",
+                    text="Line 5",
+                    start=28,
+                    end=34,
+                ),
+            ],
+            id="regex_one_line_pattern",
         ),
     ],
 )
