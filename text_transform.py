@@ -2,7 +2,7 @@ import re
 from pathlib import Path
 from typing import List
 
-from text_transform_utils import get_filenames_of_name_tags
+from get_files_of_name_tags import get_filenames_of_name_tags
 
 from src.recipes import split_file_with_separators
 from src.search_configuration import SearchConfiguration
