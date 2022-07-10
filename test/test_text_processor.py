@@ -92,10 +92,10 @@ def test_substitute_pattern_with_replacement(
     search_configuration, replacement, expected
 ):
     text_processor = TextProcessor(MULTILINE_CONTENT)
-    new_text = text_processor.substitute_pattern_with_replacement(
+    text_processor.substitute_pattern_with_replacement(
         pattern=search_configuration, replacement=replacement
     )
-    assert new_text == expected
+    assert text_processor.get_text() == expected
 
 
 @pytest.mark.parametrize(

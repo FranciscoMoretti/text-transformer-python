@@ -16,12 +16,9 @@ def replace_relative_tags_with_absolute_tags_in_file(
             name="name_tag",
             regex_pattern=regex_pattern,
         )
-        edited_text = (
-            input_file_text_processor.substitute_pattern_with_replacement(
-                pattern=pattern, replacement=rf"[(\g<link>)]({absolute_tag})"
-            )
+        input_file_text_processor.substitute_pattern_with_replacement(
+            pattern=pattern, replacement=rf"[(\g<link>)]({absolute_tag})"
         )
-        input_file_text_processor = TextProcessor(edited_text)
 
     return TextFile(
         text=input_file_text_processor.get_text(), path=input_file.path

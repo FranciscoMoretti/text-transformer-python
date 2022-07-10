@@ -30,8 +30,8 @@ class TextProcessor:
 
     def substitute_pattern_with_replacement(
         self, pattern: SearchConfiguration, replacement: RegexReplacement
-    ) -> str:
-        return pattern.regex.sub(repl=replacement, string=self._text)
+    ):
+        self._text = pattern.regex.sub(repl=replacement, string=self._text)
 
     def split_at_pattern(self, pattern: SearchConfiguration) -> List[str]:
         return pattern.regex.split(string=self._text)
