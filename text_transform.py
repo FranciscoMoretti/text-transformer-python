@@ -1,6 +1,7 @@
 from pathlib import Path
 from typing import List
 
+from configure_output_file_paths import configure_output_file_paths
 from get_files_of_name_tags import get_filenames_of_name_tags
 from replace_relative_tags_with_absolute_tags_in_file import (
     replace_relative_tags_with_absolute_tags_in_file,
@@ -14,6 +15,7 @@ from src.text_file_io import TextFileIO
 INPUT_TEXT_FILE_PATH = Path(".sandbox/CppCoreGuidelines.md")
 INPUT_SEPARATORS_FILE_PATH = Path(".sandbox/separators.json")
 OUTPUT_DIRECTORY_PATH = Path(".sandbox/output")
+OUTPUT_FILE_EXTENSION = ".mdx"
 
 file_separators: List[
     SearchConfiguration
@@ -44,9 +46,11 @@ separated_files_with_absolute_references = split_file_with_separators(
     edited_file, file_separators
 )
 
-for file_a in separated_files_with_absolute_references:
-    file_a.path = Path.joinpath(
-        OUTPUT_DIRECTORY_PATH, file_a.path
-    ).with_suffix(".mdx")
-for file_b in separated_files_with_absolute_references:
-    TextFileIO.save_to_real_file(file_b)
+files = configure_output_file_paths(
+    files=separated_files_with_absolute_references,
+    prefix_path=OUTPUT_DIRECTORY_PATH,
+    file_suffix=OUTPUT_FILE_EXTENSION,
+)
+
+for file in files:
+    TextFileIO.save_to_real_file(file)
