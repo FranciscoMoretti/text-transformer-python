@@ -1,5 +1,3 @@
-import re
-
 from src.search_configuration import SearchConfiguration
 from src.text_file import TextFile
 from src.text_processor import TextProcessor
@@ -8,26 +6,22 @@ from src.text_processor import TextProcessor
 def replace_relative_tags_with_absolute_tags_in_file(
     input_file, absolute_tag_of_relative_tag
 ):
-    def replace_relative_tag_by_absolute_tag_in_match(
-        match_object: re.Match,
-    ) -> str:
-        relative_name = match_object.groupdict()["relative"]
-        absolute_name = absolute_tag_of_relative_tag[relative_name.lstrip("#")]
-        return match_object.string.replace(relative_name, absolute_name)
 
     input_file_text_processor = TextProcessor(input_file.text)
 
-    for relative_tag in absolute_tag_of_relative_tag.keys():
+    for relative_tag, absolute_tag in absolute_tag_of_relative_tag.items():
+        print(f"running for tag: {relative_tag} ")
+        regex_pattern = rf"\[(?P<link>.*)\]\((?P<relative>#{relative_tag})\)"
         pattern = SearchConfiguration(
             name="name_tag",
-            regex_pattern=rf".*\[.*\]\((?P<relative>#{relative_tag})\).*",
+            regex_pattern=regex_pattern,
         )
-        input_file_text_processor = TextProcessor(
+        edited_text = (
             input_file_text_processor.substitute_pattern_with_replacement(
-                pattern=pattern,
-                replacement=replace_relative_tag_by_absolute_tag_in_match,
+                pattern=pattern, replacement=rf"[(\g<link>)]({absolute_tag})"
             )
         )
+        input_file_text_processor = TextProcessor(edited_text)
 
     return TextFile(
         text=input_file_text_processor.get_text(), path=input_file.path
