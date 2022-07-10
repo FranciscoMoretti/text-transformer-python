@@ -3,6 +3,9 @@ from typing import List
 
 from example.configure_output_file_paths import configure_output_file_paths
 from example.get_files_of_name_tags import get_filenames_of_name_tags
+from example.replace_multiple_patterns_of_file import (
+    replace_multiple_patterns_of_file,
+)
 from example.replace_relative_tags_with_absolute_tags_in_file import (
     replace_relative_tags_with_absolute_tags_in_file,
 )
@@ -17,11 +20,14 @@ INPUT_SEPARATORS_FILE_PATH = Path(".sandbox/separators.json")
 OUTPUT_DIRECTORY_PATH = Path(".sandbox/output")
 OUTPUT_FILE_EXTENSION = ".mdx"
 
+
 file_separators: List[
     SearchConfiguration
 ] = SearchConfigurationsReader.from_json_file(INPUT_SEPARATORS_FILE_PATH)
 
 input_file = TextFileIO.read_from_path(INPUT_TEXT_FILE_PATH)
+
+input_file = replace_multiple_patterns_of_file(input_file)
 
 separated_files = split_file_with_separators(input_file, file_separators)
 
