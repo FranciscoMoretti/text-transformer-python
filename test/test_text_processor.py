@@ -80,6 +80,12 @@ def test_search_matchings_of_pattern(test_input, expected):
             MULTILINE_CONTENT.replace("Line 3", "Line new"),
             id="simple_replacement",
         ),
+        pytest.param(
+            SearchConfiguration(name="bar", regex_pattern=".*Line 3.*\n"),
+            "",
+            MULTILINE_CONTENT.replace("Line 3\n", ""),
+            id="line_replacement_with_empty_deletes_line",
+        ),
     ],
 )
 def test_substitute_pattern_with_replacement(
