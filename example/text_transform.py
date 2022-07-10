@@ -1,9 +1,9 @@
 from pathlib import Path
 from typing import List
 
-from configure_output_file_paths import configure_output_file_paths
-from get_files_of_name_tags import get_filenames_of_name_tags
-from replace_relative_tags_with_absolute_tags_in_file import (
+from example.configure_output_file_paths import configure_output_file_paths
+from example.get_files_of_name_tags import get_filenames_of_name_tags
+from example.replace_relative_tags_with_absolute_tags_in_file import (
     replace_relative_tags_with_absolute_tags_in_file,
 )
 
