@@ -11,6 +11,16 @@ from src.text_file import TextFile
 from src.text_file_io import TextFileIO
 from src.text_processor import TextProcessor
 
+
+def split_file_with_separators(
+    file: TextFile, separators: List[SearchConfiguration]
+) -> List[TextFile]:
+    input_file_processor = FileProcessor(file)
+    return input_file_processor.split_files_with_separators_starting_and_name(
+        separators=separators
+    )
+
+
 INPUT_TEXT_FILE_PATH = Path(".sandbox/CppCoreGuidelines.md")
 INPUT_SEPARATORS_FILE_PATH = Path(".sandbox/separators.json")
 OUTPUT_DIRECTORY_PATH = Path(".sandbox/output")
@@ -20,13 +30,8 @@ file_separators: List[
 ] = SearchConfigurationsReader.from_json_file(INPUT_SEPARATORS_FILE_PATH)
 
 input_file = TextFileIO.read_from_path(INPUT_TEXT_FILE_PATH)
-input_file_processor = FileProcessor(input_file)
 
-separated_files: List[
-    TextFile
-] = input_file_processor.split_files_with_separators_starting_and_name(
-    separators=file_separators
-)
+separated_files = split_file_with_separators(input_file, file_separators)
 
 name_tag_pattern = SearchConfiguration(
     name="name_tag", regex_pattern=r'.*name="(?P<tag>[A-Za-z0-9-]*)".*'
@@ -110,15 +115,14 @@ for relative_tag, absolute_tag in absolute_tag_of_relative_tag.items():
         )
     )
 
-separated_files_with_absolute_references = (
-    input_file_processor.split_files_with_separators_starting_and_name(
-        file_separators
-    )
+separated_files_with_absolute_references = split_file_with_separators(
+    TextFile(text=input_file_text_processor.get_text(), path=Path("")),
+    file_separators,
 )
 
-for file in separated_files_with_absolute_references:
-    file.path = Path.joinpath(OUTPUT_DIRECTORY_PATH, file.path).with_suffix(
-        ".mdx"
-    )
-for file in separated_files_with_absolute_references:
-    TextFileIO.save_to_real_file(file)
+for file_a in separated_files_with_absolute_references:
+    file_a.path = Path.joinpath(
+        OUTPUT_DIRECTORY_PATH, file_a.path
+    ).with_suffix(".mdx")
+for file_b in separated_files_with_absolute_references:
+    TextFileIO.save_to_real_file(file_b)

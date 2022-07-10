@@ -11,6 +11,9 @@ class TextProcessor:
     def __init__(self, text: str) -> None:
         self._text = text
 
+    def get_text(self) -> str:
+        return self._text
+
     def find_matchings_of_pattern(
         self,
         pattern: SearchConfiguration,
