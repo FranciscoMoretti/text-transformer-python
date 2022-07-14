@@ -37,6 +37,20 @@ REPLACEMENTS: List[ReplaceConfiguration] = [
         ),
         replacement="",
     ),
+    ReplaceConfiguration(
+        search_configuration=SearchConfiguration(
+            regex_pattern=r"<a name=",
+            name="href_in_a_tag",
+        ),
+        replacement='<a href="#" name=',
+    ),
+    ReplaceConfiguration(
+        search_configuration=SearchConfiguration(
+            regex_pattern="```(([^```]|\n)*)```",
+            name="add_cpp_language_to_codeblock",
+        ),
+        replacement=r"```cpp\1```",
+    ),
 ]
 
 
