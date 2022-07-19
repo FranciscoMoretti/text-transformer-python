@@ -46,7 +46,7 @@ REPLACEMENTS: List[ReplaceConfiguration] = [
     ),
     ReplaceConfiguration(
         search_configuration=SearchConfiguration(
-            regex_pattern="```(([^```]|\n)*)```",
+            regex_pattern="```((([^`]|\n)*|``|`)*)```",
             name="add_cpp_language_to_codeblock",
         ),
         replacement=r"```cpp\1```",
