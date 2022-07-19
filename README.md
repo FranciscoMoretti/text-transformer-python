@@ -27,14 +27,9 @@ using this repl
 This illustrates the need of text processing files as a single string to be able to match a multiline regex.
 
 
-## Improve regex to not parse
-----------------
-"""
-> * `Expects`     // precondition assertion. Currently placed in function bodies. Later, should be moved to declarations.```cpp
->                 // `Expects(p)` terminates the program unless `p == true`
->                 // `Expects` is under control of some options (enforcement, error message, alternatives to terminate)
+## Run Remark to add code fences
 ```
-> * `Ensures`     // postcondition assertion. Currently placed in function bodies. Later, should be moved to declarations.
-
-"""
--------
+cd .sandbox/nodejs/
+npm run format
+```
+Then copy the generated file
